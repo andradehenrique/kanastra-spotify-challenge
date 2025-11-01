@@ -1,0 +1,85 @@
+{
+  "common": {
+    "search": "Buscar",
+    "loading": "Carregando...",
+    "error": "Erro ao carregar dados",
+    "noResults": "Nenhum resultado encontrado",
+    "back": "Voltar",
+    "close": "Fechar",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "next": "Próximo",
+    "previous": "Anterior",
+    "page": "Página"
+  },
+  "header": {
+    "title": "Spotify Challenge",
+    "language": "Idioma"
+  },
+  "home": {
+    "title": "Buscar Artistas",
+    "searchPlaceholder": "Digite o nome do artista ou álbum...",
+    "searchByArtist": "Buscar por Artista",
+    "searchByAlbum": "Buscar por Álbum",
+    "resultsCount": "{{count}} artista(s) encontrado(s)",
+    "itemsPerPage": "itens por página"
+  },
+  "artist": {
+    "details": "Detalhes do Artista",
+    "followers": "Seguidores",
+    "genres": "Gêneros",
+    "popularity": "Popularidade",
+    "topTracks": "Top Músicas",
+    "albums": "Álbuns",
+    "noGenres": "Sem gêneros definidos",
+    "listenOn": "Ouvir no Spotify"
+  },
+  "tracks": {
+    "title": "Músicas",
+    "name": "Nome",
+    "album": "Álbum",
+    "duration": "Duração",
+    "popularity": "Popularidade",
+    "releaseDate": "Lançamento",
+    "preview": "Prévia"
+  },
+  "albums": {
+    "title": "Álbuns",
+    "name": "Nome",
+    "type": "Tipo",
+    "tracks": "Músicas",
+    "releaseDate": "Lançamento"
+  },
+  "favorites": {
+    "title": "Músicas Favoritas",
+    "addFavorite": "Adicionar aos Favoritos",
+    "myFavorites": "Minhas Favoritas",
+    "noFavorites": "Você ainda não tem músicas favoritas",
+    "form": {
+      "songName": "Nome da Música",
+      "songNamePlaceholder": "Digite o nome da música",
+      "artistName": "Nome do Artista",
+      "artistNamePlaceholder": "Digite o nome do artista",
+      "albumName": "Nome do Álbum",
+      "albumNamePlaceholder": "Digite o nome do álbum (opcional)",
+      "notes": "Notas",
+      "notesPlaceholder": "Adicione suas notas sobre a música (opcional)",
+      "submit": "Adicionar Favorita",
+      "success": "Música adicionada aos favoritos!",
+      "error": "Erro ao adicionar música aos favoritos"
+    },
+    "validation": {
+      "songNameRequired": "Nome da música é obrigatório",
+      "songNameMin": "Nome da música deve ter pelo menos 2 caracteres",
+      "artistNameRequired": "Nome do artista é obrigatório",
+      "artistNameMin": "Nome do artista deve ter pelo menos 2 caracteres",
+      "albumNameMin": "Nome do álbum deve ter pelo menos 2 caracteres",
+      "notesMax": "Notas não podem ter mais de 500 caracteres"
+    }
+  },
+  "charts": {
+    "popularityTitle": "Popularidade das Top Tracks",
+    "popularity": "Popularidade",
+    "trackName": "Música"
+  }
+}

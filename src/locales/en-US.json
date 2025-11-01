@@ -1,0 +1,85 @@
+{
+  "common": {
+    "search": "Search",
+    "loading": "Loading...",
+    "error": "Error loading data",
+    "noResults": "No results found",
+    "back": "Back",
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "next": "Next",
+    "previous": "Previous",
+    "page": "Page"
+  },
+  "header": {
+    "title": "Spotify Challenge",
+    "language": "Language"
+  },
+  "home": {
+    "title": "Search Artists",
+    "searchPlaceholder": "Type artist or album name...",
+    "searchByArtist": "Search by Artist",
+    "searchByAlbum": "Search by Album",
+    "resultsCount": "{{count}} artist(s) found",
+    "itemsPerPage": "items per page"
+  },
+  "artist": {
+    "details": "Artist Details",
+    "followers": "Followers",
+    "genres": "Genres",
+    "popularity": "Popularity",
+    "topTracks": "Top Tracks",
+    "albums": "Albums",
+    "noGenres": "No genres defined",
+    "listenOn": "Listen on Spotify"
+  },
+  "tracks": {
+    "title": "Tracks",
+    "name": "Name",
+    "album": "Album",
+    "duration": "Duration",
+    "popularity": "Popularity",
+    "releaseDate": "Release Date",
+    "preview": "Preview"
+  },
+  "albums": {
+    "title": "Albums",
+    "name": "Name",
+    "type": "Type",
+    "tracks": "Tracks",
+    "releaseDate": "Release Date"
+  },
+  "favorites": {
+    "title": "Favorite Songs",
+    "addFavorite": "Add to Favorites",
+    "myFavorites": "My Favorites",
+    "noFavorites": "You don't have any favorite songs yet",
+    "form": {
+      "songName": "Song Name",
+      "songNamePlaceholder": "Enter song name",
+      "artistName": "Artist Name",
+      "artistNamePlaceholder": "Enter artist name",
+      "albumName": "Album Name",
+      "albumNamePlaceholder": "Enter album name (optional)",
+      "notes": "Notes",
+      "notesPlaceholder": "Add your notes about the song (optional)",
+      "submit": "Add Favorite",
+      "success": "Song added to favorites!",
+      "error": "Error adding song to favorites"
+    },
+    "validation": {
+      "songNameRequired": "Song name is required",
+      "songNameMin": "Song name must be at least 2 characters",
+      "artistNameRequired": "Artist name is required",
+      "artistNameMin": "Artist name must be at least 2 characters",
+      "albumNameMin": "Album name must be at least 2 characters",
+      "notesMax": "Notes cannot exceed 500 characters"
+    }
+  },
+  "charts": {
+    "popularityTitle": "Top Tracks Popularity",
+    "popularity": "Popularity",
+    "trackName": "Track"
+  }
+}

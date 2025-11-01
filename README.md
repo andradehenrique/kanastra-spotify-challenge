@@ -137,11 +137,35 @@ npm run lint:fix   # Corrige problemas do ESLint automaticamente
 - ✅ Detalhes de um álbum
 - ✅ Tracks de um álbum (paginado)
 
-## 🔗 Links Úteis
+## 🌐 Internacionalização (i18n)
+
+A aplicação suporta dois idiomas:
+- **PT-BR** (Português do Brasil) - padrão
+- **EN-US** (Inglês Americano)
+
+O usuário pode alternar entre os idiomas através do componente `LanguageToggle` no header.
+
+Todas as traduções estão em `src/locales/`.
+
+## Formulários e Validação
+
+Os formulários utilizam:
+- **React Hook Form** - Gerenciamento performático
+- **Zod** - Validação de schemas com type-safety
+- **@hookform/resolvers** - Integração entre RHF e Zod
+
+Exemplo de schema em `src/schemas/favoriteSongSchema.ts`.
+
+## �🔗 Links Úteis
 
 - [Documentação da API do Spotify](https://developer.spotify.com/documentation/web-api)
 - [Console da API do Spotify](https://developer.spotify.com/console)
 - [Dashboard do Spotify for Developers](https://developer.spotify.com/dashboard)
+
+## 📖 Documentação Adicional
+
+- [LIBS-SETUP.md](./docs/LIBS-SETUP.md) - Guia detalhado de configuração das bibliotecas
+- [NEXT-STEPS.md](./NEXT-STEPS.md) - Próximos passos do desenvolvimento
 
 ---
 

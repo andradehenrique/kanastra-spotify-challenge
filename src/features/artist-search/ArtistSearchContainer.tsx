@@ -29,6 +29,7 @@ export function ArtistSearchContainer() {
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(urlSearchTerm);
 
   // Ref para evitar loop de sincronização
+  const containerRef = useRef<HTMLDivElement>(null);
   const previousUrlTermRef = useRef(urlSearchTerm);
 
   const debouncedUpdateSearch = useMemo(() => {
@@ -56,7 +57,6 @@ export function ArtistSearchContainer() {
     debouncedUpdateSearch(searchTerm);
   }, [searchTerm, debouncedUpdateSearch]);
 
-  // Sincroniza apenas quando URL muda externamente (botão voltar, sugestão clicada)
   useEffect(() => {
     if (urlSearchTerm !== previousUrlTermRef.current) {
       setSearchTerm(urlSearchTerm);
@@ -64,6 +64,10 @@ export function ArtistSearchContainer() {
       previousUrlTermRef.current = urlSearchTerm;
     }
   }, [urlSearchTerm]);
+
+  useEffect(() => {
+    containerRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [currentPage]);
 
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
@@ -84,7 +88,6 @@ export function ArtistSearchContainer() {
         page,
       }),
     });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleArtistClick = (artistId: string) => {
@@ -159,7 +162,7 @@ export function ArtistSearchContainer() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8" ref={containerRef}>
       <SearchInput
         value={searchTerm}
         onChange={handleSearchChange}

@@ -81,5 +81,8 @@
     "popularityTitle": "Popularidade das Top Tracks",
     "popularity": "Popularidade",
     "trackName": "Música"
+  },
+  "footer": {
+    "developerBy": "Desenvolvido por"
   }
 }

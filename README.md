@@ -70,6 +70,8 @@ A aplicação estará disponível em `http://localhost:5173`
 
 ## 🏗️ Arquitetura do Projeto
 
+Este projeto segue uma arquitetura baseada em **features** com separação clara entre componentes "burros" (UI) e "inteligentes" (lógica de negócio).
+
 ```
 src/
 ├── @types/              # Definições de tipos TypeScript
@@ -78,29 +80,70 @@ src/
 │   ├── axios.ts         # Instância configurada do Axios + interceptors
 │   ├── config.ts        # Configurações da API
 │   └── spotify.ts       # Funções para consumir a API do Spotify
-├── components/          # Componentes reutilizáveis
-│   ├── layout/          # Componentes de layout (Header, Footer)
-│   ├── ui/              # Componentes base (Shadcn UI)
-│   └── charts/          # Componentes de gráficos
-├── context/             # Context API
-│   └── FavoritesContext.tsx
+├── components/
+│   ├── layout/          # Header, Footer, PageWrapper (mobile-first)
+│   ├── ui/              # Componentes base do Shadcn UI
+│   └── charts/          # Componentes de gráficos (Recharts)
+├── context/             # Context API + useReducer
+│   └── FavoritesContext.tsx  # Gerenciamento de músicas favoritas + Local Storage
 ├── features/            # Componentes "smart" (contêineres)
 │   ├── artist-search/   # Listagem e busca de artistas
 │   ├── artist-details/  # Detalhes do artista
 │   └── favorites-form/  # Formulário de músicas favoritas
 ├── hooks/               # Custom hooks
-│   ├── useFavorites.ts
-│   └── useSpotifyApi.ts
+│   ├── useFavorites.ts  # Hook para consumir FavoritesContext
+│   ├── useSpotifyApi.ts # Hooks do React Query para API do Spotify
+│   └── useTranslation.ts # Hook para i18n
 ├── lib/                 # Utilitários e configurações
-│   ├── i18n.ts
-│   ├── queryClient.ts
-│   └── utils.ts
-├── pages/               # Páginas (rotas)
-│   ├── Home.tsx
-│   └── Artist.tsx
-└── schemas/             # Schemas Zod
-    └── favoriteSongSchema.ts
+│   ├── i18n.ts          # Configuração do i18next
+│   ├── queryClient.ts   # Configuração do React Query
+│   └── utils.ts         # Funções utilitárias
+├── locales/             # Arquivos de tradução
+│   ├── en-US.json       # Inglês americano
+│   └── pt-BR.json       # Português brasileiro
+├── routes/              # Rotas do TanStack Router (file-based routing)
+│   ├── __root.tsx       # Layout principal + providers
+│   ├── index.tsx        # Página inicial (listagem/busca)
+│   └── artist/
+│       └── $artistId.tsx # Página de detalhes do artista
+├── schemas/             # Schemas Zod para validação
+│   └── favoriteSongSchema.ts
+└── routeTree.gen.ts     # Gerado automaticamente pelo TanStack Router
 ```
+
+### Decisões de Arquitetura
+
+#### 🎯 Separação de State Management
+
+**Server State (React Query)**
+- Gerencia dados da API do Spotify (artistas, álbuns, tracks)
+- Cache automático e revalidação
+- Loading/error states otimizados
+
+**Client State (Context API + useReducer)**
+- Gerencia músicas favoritas
+- Persiste no Local Storage
+- Usado exclusivamente para funcionalidades locais
+
+#### 🚀 TanStack Router
+
+- **File-based routing** para rotas type-safe
+- Navegação simplificada e otimizada
+- Code splitting automático
+- Integração nativa com React Query
+
+#### 📱 Design Mobile-First
+
+- Layout responsivo construído de baixo para cima
+- Componentes otimizados para telas pequenas
+- Breakpoints do Tailwind (md:, lg:) para desktop
+
+#### 🎨 UI com Shadcn UI
+
+- Componentes acessíveis e customizáveis
+- Construídos em cima do Tailwind CSS
+- Copiar e colar (sem dependências pesadas)
+- Mantém controle total do código
 
 ## 🔐 Autenticação com a API do Spotify
 

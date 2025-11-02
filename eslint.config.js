@@ -8,7 +8,7 @@ import pluginQuery from '@tanstack/eslint-plugin-query'
 import { defineConfig, globalIgnores } from "eslint/config";
 
 export default defineConfig([
-  globalIgnores(["dist"]),
+  globalIgnores(["dist", "src/routeTree.gen.ts"]),
   {
     files: ["**/*.{ts,tsx}"],
     extends: [
@@ -17,7 +17,7 @@ export default defineConfig([
       reactHooks.configs["recommended-latest"],
       reactRefresh.configs.vite,
       prettierConfig,
-      pluginQuery.configs.recommended,
+      ...pluginQuery.configs['flat/recommended'],
     ],
     languageOptions: {
       ecmaVersion: 2020,
@@ -32,8 +32,7 @@ export default defineConfig([
           tabWidth: 2,
           semi: true,
           trailingComma: "es5",
-          bracketSpacing: true,
-          endOfLine: "lf",
+          endOfLine: "auto",
         },
       ],
     },

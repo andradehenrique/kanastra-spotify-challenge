@@ -40,10 +40,7 @@ export function FavoriteFormExample() {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         {/* Song Name */}
         <div>
-          <label
-            htmlFor="songName"
-            className="mb-1 block text-sm font-medium"
-          >
+          <label htmlFor="songName" className="mb-1 block text-sm font-medium">
             {t('favorites.form.songName')} *
           </label>
           <input
@@ -62,10 +59,7 @@ export function FavoriteFormExample() {
 
         {/* Artist Name */}
         <div>
-          <label
-            htmlFor="artistName"
-            className="mb-1 block text-sm font-medium"
-          >
+          <label htmlFor="artistName" className="mb-1 block text-sm font-medium">
             {t('favorites.form.artistName')} *
           </label>
           <input
@@ -84,10 +78,7 @@ export function FavoriteFormExample() {
 
         {/* Album Name (Optional) */}
         <div>
-          <label
-            htmlFor="albumName"
-            className="mb-1 block text-sm font-medium"
-          >
+          <label htmlFor="albumName" className="mb-1 block text-sm font-medium">
             {t('favorites.form.albumName')}
           </label>
           <input
@@ -98,18 +89,13 @@ export function FavoriteFormExample() {
             className="w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2"
           />
           {errors.albumName && (
-            <p className="mt-1 text-sm text-red-600">
-              {errors.albumName.message}
-            </p>
+            <p className="mt-1 text-sm text-red-600">{errors.albumName.message}</p>
           )}
         </div>
 
         {/* Notes (Optional) */}
         <div>
-          <label
-            htmlFor="notes"
-            className="mb-1 block text-sm font-medium"
-          >
+          <label htmlFor="notes" className="mb-1 block text-sm font-medium">
             {t('favorites.form.notes')}
           </label>
           <textarea
@@ -119,19 +105,11 @@ export function FavoriteFormExample() {
             rows={3}
             className="w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2"
           />
-          {errors.notes && (
-            <p className="mt-1 text-sm text-red-600">
-              {errors.notes.message}
-            </p>
-          )}
+          {errors.notes && <p className="mt-1 text-sm text-red-600">{errors.notes.message}</p>}
         </div>
 
         {/* Submit Button */}
-        <Button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full"
-        >
+        <Button type="submit" disabled={isSubmitting} className="w-full">
           {isSubmitting ? t('common.loading') : t('favorites.form.submit')}
         </Button>
       </form>

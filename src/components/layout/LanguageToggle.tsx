@@ -12,11 +12,7 @@ export function LanguageToggle() {
   const currentLanguage = i18n.language === 'pt-BR' ? 'PT-BR' : 'EN-US';
 
   return (
-    <Button
-      onClick={toggleLanguage}
-      variant="outline"
-      size="sm"
-    >
+    <Button onClick={toggleLanguage} variant="outline" size="sm">
       {t('header.language')}: {currentLanguage}
     </Button>
   );

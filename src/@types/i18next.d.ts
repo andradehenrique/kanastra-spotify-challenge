@@ -1,6 +1,6 @@
 /**
  * Tipos globais para i18next
- * 
+ *
  * Isso fornece autocomplete e type-safety para as traduções
  */
 import 'i18next';

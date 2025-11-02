@@ -15,7 +15,7 @@ function RootComponent() {
     <>
       <QueryClientProvider client={queryClient}>
         <FavoritesProvider>
-          <div className="flex min-h-screen flex-col w-full">
+          <div className="flex min-h-screen w-full flex-col">
             <Header />
             <Outlet />
             <Footer />

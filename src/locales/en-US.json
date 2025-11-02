@@ -21,8 +21,18 @@
     "searchPlaceholder": "Type artist or album name...",
     "searchByArtist": "Search by Artist",
     "searchByAlbum": "Search by Album",
+    "artists": "Artists",
+    "albums": "Albums",
     "resultsCount": "{{count}} artist(s) found",
-    "itemsPerPage": "items per page"
+    "resultsFor": "Results for \"{{term}}\"",
+    "noResultsFor": "No artists found for \"{{term}}\". Try a different search term.",
+    "clearSearch": "Clear search",
+    "searchHint": "Type at least 2 characters to search",
+    "itemsPerPage": "items per page",
+    "welcomeTitle": "Discover your favorite artists",
+    "welcomeDescription": "Use the search above to find artists, explore albums, and discover amazing music from Spotify.",
+    "trySearching": "Try searching for",
+    "tryDifferentSearch": "Try using different keywords or check the spelling."
   },
   "artist": {
     "details": "Artist Details",

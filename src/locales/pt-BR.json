@@ -21,8 +21,18 @@
     "searchPlaceholder": "Digite o nome do artista ou álbum...",
     "searchByArtist": "Buscar por Artista",
     "searchByAlbum": "Buscar por Álbum",
+    "artists": "Artistas",
+    "albums": "Álbuns",
     "resultsCount": "{{count}} artista(s) encontrado(s)",
-    "itemsPerPage": "itens por página"
+    "resultsFor": "Resultados para \"{{term}}\"",
+    "noResultsFor": "Nenhum artista encontrado para \"{{term}}\". Tente outro termo de busca.",
+    "clearSearch": "Limpar busca",
+    "searchHint": "Digite pelo menos 2 caracteres para buscar",
+    "itemsPerPage": "itens por página",
+    "welcomeTitle": "Descubra seus artistas favoritos",
+    "welcomeDescription": "Use a busca acima para encontrar artistas, explorar álbuns e descobrir músicas incríveis do Spotify.",
+    "trySearching": "Experimente buscar",
+    "tryDifferentSearch": "Tente usar palavras-chave diferentes ou verifique a ortografia."
   },
   "artist": {
     "details": "Detalhes do Artista",

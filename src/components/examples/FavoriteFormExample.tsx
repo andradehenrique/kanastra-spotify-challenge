@@ -48,7 +48,7 @@ export function FavoriteFormExample() {
             type="text"
             {...register('songName')}
             placeholder={t('favorites.form.songNamePlaceholder')}
-            className="w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2"
+            className="w-full rounded-md border px-3 py-2 focus:ring-2 focus:outline-none"
           />
           {errors.songName && (
             <p className="mt-1 text-sm text-red-600">
@@ -67,7 +67,7 @@ export function FavoriteFormExample() {
             type="text"
             {...register('artistName')}
             placeholder={t('favorites.form.artistNamePlaceholder')}
-            className="w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2"
+            className="w-full rounded-md border px-3 py-2 focus:ring-2 focus:outline-none"
           />
           {errors.artistName && (
             <p className="mt-1 text-sm text-red-600">
@@ -86,7 +86,7 @@ export function FavoriteFormExample() {
             type="text"
             {...register('albumName')}
             placeholder={t('favorites.form.albumNamePlaceholder')}
-            className="w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2"
+            className="w-full rounded-md border px-3 py-2 focus:ring-2 focus:outline-none"
           />
           {errors.albumName && (
             <p className="mt-1 text-sm text-red-600">{errors.albumName.message}</p>
@@ -103,7 +103,7 @@ export function FavoriteFormExample() {
             {...register('notes')}
             placeholder={t('favorites.form.notesPlaceholder')}
             rows={3}
-            className="w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2"
+            className="w-full rounded-md border px-3 py-2 focus:ring-2 focus:outline-none"
           />
           {errors.notes && <p className="mt-1 text-sm text-red-600">{errors.notes.message}</p>}
         </div>

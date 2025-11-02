@@ -6,16 +6,16 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="mt-auto w-full border-t bg-background">
-      <div className="container flex flex-col items-center justify-between gap-4 px-4 py-6 md:flex-row md:px-8 mx-auto">
-        <div className="flex flex-col items-center gap-2 text-center text-sm text-muted-foreground md:flex-row md:text-left">
+    <footer className="bg-background mt-auto w-full border-t">
+      <div className="container mx-auto flex flex-col items-center justify-between gap-4 px-4 py-6 md:flex-row md:px-8">
+        <div className="text-muted-foreground flex flex-col items-center gap-2 text-center text-sm md:flex-row md:text-left">
           <span>
             {t('footer.developerBy')}{' '}
             <a
               href="https://github.com/andradehenrique"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium underline underline-offset-4 hover:text-primary"
+              className="hover:text-primary font-medium underline underline-offset-4"
             >
               Henrique Andrade
             </a>
@@ -29,7 +29,7 @@ export function Footer() {
             href="https://github.com/andradehenrique/kanastra-spotify-challenge"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
+            className="text-muted-foreground hover:text-primary flex items-center gap-2 text-sm transition-colors"
           >
             <SiGithub className="h-4 w-4" />
             <span className="hidden sm:inline">GitHub</span>

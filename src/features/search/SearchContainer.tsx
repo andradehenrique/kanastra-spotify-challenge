@@ -2,7 +2,6 @@ import { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate, useSearch } from '@tanstack/react-router';
 import { useSearchArtists, useSearchAlbums } from '@/hooks/useSpotifyApi';
 import { debounce } from '@/lib/utils';
-import { ArtistCard, AlbumCard } from '@/components/ui';
 import {
   SearchInput,
   SearchTypeToggle,
@@ -11,6 +10,8 @@ import {
   ErrorState,
   LoadingState,
   ItemsGrid,
+  ArtistCard,
+  AlbumCard,
 } from './components';
 
 const ITEMS_PER_PAGE = 20;

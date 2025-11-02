@@ -13,8 +13,6 @@ export {
   CardContent,
 } from './card';
 export { Pagination, SimplePagination } from './pagination';
-export { ArtistCard } from './artist-card';
-export { AlbumCard } from './album-card';
 export {
   Table,
   TableHeader,

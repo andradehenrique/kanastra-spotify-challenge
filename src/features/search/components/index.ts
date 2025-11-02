@@ -5,3 +5,5 @@ export { EmptyResultsState } from './EmptyResultsState';
 export { ErrorState } from './ErrorState';
 export { LoadingState } from './LoadingState';
 export { ItemsGrid } from './ItemsGrid';
+export { ArtistCard } from './ArtistCard';
+export { AlbumCard } from './AlbumCard';

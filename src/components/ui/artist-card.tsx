@@ -9,7 +9,7 @@ interface ArtistCardProps {
 
 export function ArtistCard({ artist, onClick }: ArtistCardProps) {
   const imageUrl = artist.images[0]?.url;
-  const genres = artist.genres.slice(0, 3); // Primeiros 3 gêneros
+  const genres = artist.genres.slice(0, 3);
 
   return (
     <Card

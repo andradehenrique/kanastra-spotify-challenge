@@ -1,5 +1,5 @@
-import { useState, useEffect, useMemo } from 'react';
-import { useNavigate } from '@tanstack/react-router';
+import { useState, useEffect, useMemo, useRef } from 'react';
+import { useNavigate, useSearch } from '@tanstack/react-router';
 import { useSearchArtists } from '@/hooks/useSpotifyApi';
 import { debounce } from '@/lib/utils';
 import {
@@ -19,25 +19,51 @@ type SearchType = 'artist' | 'album';
 
 export function ArtistSearchContainer() {
   const navigate = useNavigate();
+  const searchParams = useSearch({ from: '/' });
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchType, setSearchType] = useState<SearchType>('artist');
+  const urlSearchTerm = searchParams.q || '';
+  const currentPage = searchParams.page || 1;
+  const searchType = searchParams.type || 'artist';
 
-  const debouncedSearch = useMemo(() => {
-    const handler = (value: string) => {
+  const [searchTerm, setSearchTerm] = useState(urlSearchTerm);
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(urlSearchTerm);
+
+  // Ref para evitar loop de sincronização
+  const previousUrlTermRef = useRef(urlSearchTerm);
+
+  const debouncedUpdateSearch = useMemo(() => {
+    return debounce((...args: unknown[]) => {
+      const value = args[0] as string;
       setDebouncedSearchTerm(value);
-      setCurrentPage(1);
-    };
-    return debounce(handler as (...args: unknown[]) => void, DEBOUNCE_DELAY) as (
-      value: string
-    ) => void;
-  }, []);
+      previousUrlTermRef.current = value;
+
+      if (value) {
+        navigate({
+          to: '/',
+          search: (prev) => ({
+            ...prev,
+            q: value,
+            type: prev.type || 'artist',
+            page: 1,
+          }),
+          replace: true,
+        });
+      }
+    }, DEBOUNCE_DELAY);
+  }, [navigate]);
 
   useEffect(() => {
-    debouncedSearch(searchTerm);
-  }, [searchTerm, debouncedSearch]);
+    debouncedUpdateSearch(searchTerm);
+  }, [searchTerm, debouncedUpdateSearch]);
+
+  // Sincroniza apenas quando URL muda externamente (botão voltar, sugestão clicada)
+  useEffect(() => {
+    if (urlSearchTerm !== previousUrlTermRef.current) {
+      setSearchTerm(urlSearchTerm);
+      setDebouncedSearchTerm(urlSearchTerm);
+      previousUrlTermRef.current = urlSearchTerm;
+    }
+  }, [urlSearchTerm]);
 
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
@@ -51,7 +77,13 @@ export function ArtistSearchContainer() {
   const totalPages = data ? Math.ceil(data.total / ITEMS_PER_PAGE) : 0;
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+    navigate({
+      to: '/',
+      search: (prev) => ({
+        ...prev,
+        page,
+      }),
+    });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -66,7 +98,22 @@ export function ArtistSearchContainer() {
   const handleClearSearch = () => {
     setSearchTerm('');
     setDebouncedSearchTerm('');
-    setCurrentPage(1);
+    navigate({
+      to: '/',
+      search: {},
+      replace: true,
+    });
+  };
+
+  const handleSearchTypeChange = (type: SearchType) => {
+    navigate({
+      to: '/',
+      search: (prev) => ({
+        ...prev,
+        type,
+        page: 1,
+      }),
+    });
   };
 
   const renderContent = () => {
@@ -80,7 +127,16 @@ export function ArtistSearchContainer() {
 
     if (!data?.items || data.items.length === 0) {
       if (!debouncedSearchTerm) {
-        return <WelcomeState onSuggestionClick={setSearchTerm} />;
+        return (
+          <WelcomeState
+            onSuggestionClick={(value: string) => {
+              navigate({
+                to: '/',
+                search: { q: value, type: searchType, page: 1 },
+              });
+            }}
+          />
+        );
       }
       return (
         <EmptyResultsState searchTerm={debouncedSearchTerm} onClearSearch={handleClearSearch} />
@@ -113,7 +169,7 @@ export function ArtistSearchContainer() {
 
       <SearchTypeToggle
         searchType={searchType}
-        onSearchTypeChange={setSearchType}
+        onSearchTypeChange={handleSearchTypeChange}
         show={!!debouncedSearchTerm && !isLoading}
       />
 

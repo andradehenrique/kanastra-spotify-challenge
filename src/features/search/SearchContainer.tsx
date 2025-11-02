@@ -68,7 +68,9 @@ export function SearchContainer() {
   }, [urlSearchTerm]);
 
   useEffect(() => {
-    containerRef.current?.scrollIntoView({ behavior: 'smooth' });
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   }, [currentPage]);
 
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;

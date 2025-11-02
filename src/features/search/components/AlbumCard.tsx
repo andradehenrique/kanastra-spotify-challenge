@@ -1,5 +1,5 @@
-import { Card } from './card';
-import { Badge } from './badge';
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import type { SpotifyAlbumSimplified } from '@/@types/spotify';
 
 interface AlbumCardProps {

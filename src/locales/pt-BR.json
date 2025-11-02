@@ -10,7 +10,8 @@
     "cancel": "Cancelar",
     "next": "Próximo",
     "previous": "Anterior",
-    "page": "Página"
+    "page": "Página",
+    "of": "de"
   },
   "header": {
     "title": "Spotify Challenge",
@@ -60,7 +61,8 @@
     "name": "Nome",
     "type": "Tipo",
     "tracks": "Músicas",
-    "releaseDate": "Lançamento"
+    "releaseDate": "Lançamento",
+    "cover": "Capa"
   },
   "favorites": {
     "title": "Músicas Favoritas",

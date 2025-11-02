@@ -1,6 +1,7 @@
+import { useEffect } from 'react';
 import { useArtistDetails, useArtistTopTracks } from '@/hooks/useSpotifyApi';
 import { useTranslation } from '@/hooks';
-import { ArtistHeader, TopTracksTable, LoadingState, ErrorState } from './components';
+import { ArtistHeader, TopTracksTable, AlbumsTable, LoadingState, ErrorState } from './components';
 
 interface ArtistDetailsContainerProps {
   artistId: string;
@@ -8,6 +9,11 @@ interface ArtistDetailsContainerProps {
 
 export function ArtistDetailsContainer({ artistId }: ArtistDetailsContainerProps) {
   const { t } = useTranslation();
+
+  // Scroll suave ao topo quando a página carregar
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [artistId]);
 
   // Buscar detalhes do artista
   const {
@@ -77,6 +83,9 @@ export function ArtistDetailsContainer({ artistId }: ArtistDetailsContainerProps
 
         {/* Tabela de Top Tracks */}
         {topTracks && topTracks.length > 0 && <TopTracksTable tracks={topTracks} />}
+
+        {/* Tabela de Álbuns */}
+        <AlbumsTable artistId={artistId} />
       </div>
     </div>
   );

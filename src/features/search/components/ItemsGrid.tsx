@@ -1,11 +1,10 @@
+import type { ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArtistCard } from '@/components/ui/artist-card';
 import { Pagination } from '@/components/ui/pagination';
 import { useTranslation } from '@/hooks/useTranslation';
-import type { SpotifyArtist } from '@/@types/spotify';
 
-interface ArtistsGridProps {
-  artists: SpotifyArtist[];
+interface ItemsGridProps<T> {
+  items: T[];
   searchTerm: string;
   currentPage: number;
   totalPages: number;
@@ -13,11 +12,12 @@ interface ArtistsGridProps {
   itemsPerPage: number;
   onPageChange: (page: number) => void;
   onClearSearch: () => void;
-  onArtistClick: (artistId: string) => void;
+  renderItem: (item: T, index: number) => ReactNode;
+  getItemKey: (item: T) => string;
 }
 
-export function ArtistsGrid({
-  artists,
+export function ItemsGrid<T>({
+  items,
   searchTerm,
   currentPage,
   totalPages,
@@ -25,8 +25,9 @@ export function ArtistsGrid({
   itemsPerPage,
   onPageChange,
   onClearSearch,
-  onArtistClick,
-}: ArtistsGridProps) {
+  renderItem,
+  getItemKey,
+}: ItemsGridProps<T>) {
   const { t } = useTranslation();
 
   return (
@@ -39,8 +40,8 @@ export function ArtistsGrid({
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {artists.map((artist) => (
-          <ArtistCard key={artist.id} artist={artist} onClick={() => onArtistClick(artist.id)} />
+        {items.map((item, index) => (
+          <div key={getItemKey(item)}>{renderItem(item, index)}</div>
         ))}
       </div>
 

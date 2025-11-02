@@ -14,6 +14,7 @@ export {
 } from './card';
 export { Pagination, SimplePagination } from './pagination';
 export { ArtistCard } from './artist-card';
+export { AlbumCard } from './album-card';
 
 // Re-export types
 export type { PaginationProps } from './pagination';

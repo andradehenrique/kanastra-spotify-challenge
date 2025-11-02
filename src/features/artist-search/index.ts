@@ -1,1 +1,0 @@
-export { ArtistSearchContainer } from './ArtistSearchContainer';

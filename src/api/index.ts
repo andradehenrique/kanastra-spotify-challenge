@@ -14,6 +14,7 @@ export { SPOTIFY_CONFIG, validateSpotifyCredentials } from './config';
 // Funções da API
 export {
   searchArtists,
+  searchAlbums,
   getArtistById,
   getArtistTopTracks,
   getArtistAlbums,

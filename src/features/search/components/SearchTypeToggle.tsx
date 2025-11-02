@@ -36,7 +36,6 @@ export function SearchTypeToggle({ searchType, onSearchTypeChange, show }: Searc
         variant={searchType === 'album' ? 'default' : 'outline'}
         size="sm"
         onClick={() => onSearchTypeChange('album')}
-        disabled
         className="gap-2"
       >
         <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

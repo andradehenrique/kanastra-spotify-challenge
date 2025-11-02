@@ -13,7 +13,7 @@ export function ArtistCard({ artist, onClick }: ArtistCardProps) {
 
   return (
     <Card
-      className="group cursor-pointer overflow-hidden pt-0 transition-all hover:scale-[1.02] hover:shadow-lg"
+      className="group h-full cursor-pointer overflow-hidden pt-0 transition-all hover:scale-[1.02] hover:shadow-lg"
       onClick={onClick}
     >
       {/* Imagem do Artista */}
@@ -45,7 +45,7 @@ export function ArtistCard({ artist, onClick }: ArtistCardProps) {
       </div>
 
       {/* Conteúdo */}
-      <div className="space-y-3 p-4">
+      <div className="space-y-3 px-4">
         {/* Nome do Artista */}
         <h3 className="group-hover:text-primary line-clamp-1 text-lg font-semibold transition-colors">
           {artist.name}

@@ -1,11 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { SearchContainer } from '@/features/search';
 import { PageWrapper } from '@/components/layout';
-import { ArtistSearchContainer } from '@/features/artist-search';
 
 type SearchParams = {
   q?: string;
-  type?: 'artist' | 'album';
   page?: number;
+  type?: 'artist' | 'album';
 };
 
 export const Route = createFileRoute('/')({
@@ -22,7 +22,7 @@ export const Route = createFileRoute('/')({
 function HomePage() {
   return (
     <PageWrapper>
-      <ArtistSearchContainer />
+      <SearchContainer />
     </PageWrapper>
   );
 }

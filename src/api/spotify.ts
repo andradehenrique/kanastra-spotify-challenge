@@ -2,6 +2,7 @@ import { spotifyApi } from './axios';
 import type {
   SpotifyArtist,
   SpotifySearchArtistsResponse,
+  SpotifySearchAlbumsResponse,
   SpotifySearchParams,
   SpotifyPaginationParams,
   SpotifyPagingObject,
@@ -33,6 +34,32 @@ export const searchArtists = async (
   });
 
   return response.data.artists;
+};
+
+/**
+ * Busca álbuns por nome
+ * @param query - Termo de busca
+ * @param limit - Número de resultados (padrão: 20)
+ * @param offset - Offset para paginação (padrão: 0)
+ * @returns Lista paginada de álbuns
+ */
+export const searchAlbums = async (
+  query: string,
+  limit: number = 20,
+  offset: number = 0
+): Promise<SpotifyPagingObject<SpotifyAlbumSimplified>> => {
+  const params: SpotifySearchParams = {
+    q: query,
+    type: 'album',
+    limit,
+    offset,
+  };
+
+  const response = await spotifyApi.get<SpotifySearchAlbumsResponse>('/search', {
+    params,
+  });
+
+  return response.data.albums;
 };
 
 /**

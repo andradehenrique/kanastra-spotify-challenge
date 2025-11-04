@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { useArtistDetails, useArtistTopTracks } from '@/hooks/useSpotifyApi';
 import { useTranslation } from '@/hooks';
 import { ArtistHeader, TopTracksTable, AlbumsTable, LoadingState, ErrorState } from './components';
+import { TopTracksPopularityChart, PopularityDurationScatterChart } from '@/components/charts';
+import { Tabs, TabsContent, TabsList, TabsTrigger, Button } from '@/components/ui';
 
 interface ArtistDetailsContainerProps {
   artistId: string;
@@ -10,12 +12,10 @@ interface ArtistDetailsContainerProps {
 export function ArtistDetailsContainer({ artistId }: ArtistDetailsContainerProps) {
   const { t } = useTranslation();
 
-  // Scroll suave ao topo quando a página carregar
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [artistId]);
 
-  // Buscar detalhes do artista
   const {
     data: artist,
     isLoading: isLoadingArtist,
@@ -23,7 +23,6 @@ export function ArtistDetailsContainer({ artistId }: ArtistDetailsContainerProps
     error: errorArtist,
   } = useArtistDetails(artistId);
 
-  // Buscar top tracks do artista
   const {
     data: topTracks,
     isLoading: isLoadingTracks,
@@ -31,7 +30,6 @@ export function ArtistDetailsContainer({ artistId }: ArtistDetailsContainerProps
     error: errorTracks,
   } = useArtistTopTracks(artistId);
 
-  // Estados de loading
   const isLoading = isLoadingArtist || isLoadingTracks;
   const isError = isErrorArtist || isErrorTracks;
   const error = errorArtist || errorTracks;
@@ -49,17 +47,12 @@ export function ArtistDetailsContainer({ artistId }: ArtistDetailsContainerProps
   }
 
   const handleGoBack = () => {
-    // Usa history.back() para voltar com os parâmetros preservados
     window.history.back();
   };
 
   return (
     <div className="space-y-8">
-      {/* Link de voltar aos resultados */}
-      <button
-        onClick={handleGoBack}
-        className="text-muted-foreground hover:text-foreground inline-flex items-center gap-2 text-sm font-medium transition-colors"
-      >
+      <Button onClick={handleGoBack} variant="ghost" size="sm" className="gap-2">
         <svg
           className="h-4 w-4"
           fill="none"
@@ -75,17 +68,38 @@ export function ArtistDetailsContainer({ artistId }: ArtistDetailsContainerProps
           />
         </svg>
         {t('common.back')}
-      </button>
+      </Button>
 
-      <div className="space-y-12">
-        {/* Header do Artista */}
+      <div className="space-y-8">
         <ArtistHeader artist={artist} />
 
-        {/* Tabela de Top Tracks */}
-        {topTracks && topTracks.length > 0 && <TopTracksTable tracks={topTracks} />}
+        <Tabs defaultValue="overview" className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="overview">{t('artist.tabs.overview')}</TabsTrigger>
+            <TabsTrigger value="charts">{t('artist.tabs.charts')}</TabsTrigger>
+          </TabsList>
 
-        {/* Tabela de Álbuns */}
-        <AlbumsTable artistId={artistId} />
+          <TabsContent value="overview" className="space-y-8 pt-6">
+            {topTracks && topTracks.length > 0 && <TopTracksTable tracks={topTracks} />}
+
+            <AlbumsTable artistId={artistId} />
+          </TabsContent>
+
+          {/* Tab: Análise e Gráficos */}
+          <TabsContent value="charts" className="space-y-8 pt-6">
+            {topTracks && topTracks.length > 0 ? (
+              <div className="grid gap-8 lg:grid-cols-1">
+                <TopTracksPopularityChart tracks={topTracks} />
+
+                <PopularityDurationScatterChart tracks={topTracks} />
+              </div>
+            ) : (
+              <div className="flex min-h-[400px] items-center justify-center rounded-lg border border-dashed">
+                <p className="text-muted-foreground text-sm">{t('common.noResults')}</p>
+              </div>
+            )}
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

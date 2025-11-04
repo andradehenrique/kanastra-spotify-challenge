@@ -35,23 +35,33 @@ export function FavoriteCard({ song, onRemove }: FavoriteCardProps) {
           )}
         </div>
 
-        <div className="flex-1 space-y-1">
+        <div className="min-w-0 flex-1 space-y-1">
           <h3
-            className="hover:text-primary cursor-pointer font-semibold transition-colors"
+            className="hover:text-primary cursor-pointer truncate font-semibold transition-colors"
             onClick={handleSpotifyClick}
+            title={song.songName}
           >
             {song.songName}
           </h3>
-          <p className="text-muted-foreground text-sm">{song.artistName}</p>
+          <p className="text-muted-foreground truncate text-sm" title={song.artistName}>
+            {song.artistName}
+          </p>
           {song.albumName && (
-            <p className="text-muted-foreground truncate text-xs">{song.albumName}</p>
+            <p className="text-muted-foreground truncate text-xs" title={song.albumName}>
+              {song.albumName}
+            </p>
           )}
           {song.notes && (
-            <p className="text-muted-foreground mt-2 line-clamp-2 text-xs italic">{song.notes}</p>
+            <p
+              className="text-muted-foreground mt-2 line-clamp-2 text-xs italic"
+              title={song.notes}
+            >
+              {song.notes}
+            </p>
           )}
         </div>
 
-        <div className="flex flex-col items-end justify-between">
+        <div className="flex w-16 shrink-0 flex-col items-end justify-between">
           <Button
             variant="ghost"
             size="icon"
@@ -61,7 +71,7 @@ export function FavoriteCard({ song, onRemove }: FavoriteCardProps) {
           >
             <Trash2 className="h-4 w-4" />
           </Button>
-          <span className="text-muted-foreground text-xs">
+          <span className="text-muted-foreground text-xs whitespace-nowrap">
             {new Date(song.createdAt).toLocaleDateString()}
           </span>
         </div>

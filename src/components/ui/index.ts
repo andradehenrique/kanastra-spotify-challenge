@@ -25,6 +25,7 @@ export {
   TableCell,
   TableCaption,
 } from './table';
+export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
 
 // Re-export types
 export type { PaginationProps } from './pagination';

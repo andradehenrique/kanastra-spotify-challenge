@@ -45,7 +45,11 @@
     "topTracks": "Top Músicas",
     "albums": "Álbuns",
     "noGenres": "Sem gêneros definidos",
-    "listenOn": "Ouvir no Spotify"
+    "listenOn": "Ouvir no Spotify",
+    "tabs": {
+      "overview": "Visão Geral",
+      "charts": "Análise e Gráficos"
+    }
   },
   "tracks": {
     "title": "Músicas",
@@ -107,7 +111,11 @@
   "charts": {
     "popularityTitle": "Popularidade das Top Tracks",
     "popularity": "Popularidade",
-    "trackName": "Música"
+    "trackName": "Música",
+    "popularityVsDuration": "Popularidade vs Duração",
+    "popularityVsDurationDescription": "Relação entre a duração das músicas e sua popularidade",
+    "avgDuration": "Duração Média",
+    "avgPopularity": "Popularidade Média"
   },
   "footer": {
     "developerBy": "Desenvolvido por"

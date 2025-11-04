@@ -45,7 +45,11 @@
     "topTracks": "Top Tracks",
     "albums": "Albums",
     "noGenres": "No genres defined",
-    "listenOn": "Listen on Spotify"
+    "listenOn": "Listen on Spotify",
+    "tabs": {
+      "overview": "Overview",
+      "charts": "Charts & Analysis"
+    }
   },
   "tracks": {
     "title": "Tracks",
@@ -107,7 +111,11 @@
   "charts": {
     "popularityTitle": "Top Tracks Popularity",
     "popularity": "Popularity",
-    "trackName": "Track"
+    "trackName": "Track",
+    "popularityVsDuration": "Popularity vs Duration",
+    "popularityVsDurationDescription": "Relationship between track duration and popularity",
+    "avgDuration": "Average Duration",
+    "avgPopularity": "Average Popularity"
   },
   "footer": {
     "developerBy": "Developed by"

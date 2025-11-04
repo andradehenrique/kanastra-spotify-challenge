@@ -119,11 +119,12 @@ export function AddManualForm() {
               ) : tracksData && tracksData.items.length > 0 ? (
                 <div className="max-h-80 overflow-y-auto">
                   {tracksData.items.map((track) => (
-                    <button
+                    <Button
                       key={track.id}
                       type="button"
+                      variant="ghost"
                       onClick={() => handleSelectTrack(track)}
-                      className="hover:bg-accent flex w-full items-start gap-3 border-b p-3 text-left transition-colors last:border-b-0"
+                      className="flex h-auto w-full items-start justify-start gap-3 border-b p-3 last:border-b-0"
                     >
                       {track.album.images[0] ? (
                         <img
@@ -136,14 +137,14 @@ export function AddManualForm() {
                           <Music className="text-muted-foreground h-6 w-6" />
                         </div>
                       )}
-                      <div className="flex-1 overflow-hidden">
+                      <div className="flex-1 overflow-hidden text-left">
                         <p className="truncate font-medium">{track.name}</p>
                         <p className="text-muted-foreground truncate text-sm">
                           {track.artists.map((a) => a.name).join(', ')}
                         </p>
                         <p className="text-muted-foreground truncate text-xs">{track.album.name}</p>
                       </div>
-                    </button>
+                    </Button>
                   ))}
                 </div>
               ) : (

@@ -180,6 +180,62 @@ npm run lint:fix   # Corrige problemas do ESLint automaticamente
 - ✅ Detalhes de um álbum
 - ✅ Tracks de um álbum (paginado)
 
+## 📊 Visualização de Dados (Gráficos)
+
+A aplicação utiliza **Recharts** para criar visualizações interativas e analíticas dos dados do Spotify.
+
+### 1. Gráfico de Popularidade das Top Tracks
+
+**Localização:** Página de detalhes do artista (`/artist/:artistId`)
+
+**Tipo:** Gráfico de Barras Horizontal
+
+**Características:**
+- Exibe a popularidade (0-100) das músicas mais populares do artista
+- Cores dinâmicas baseadas no nível de popularidade:
+  - 🟢 Verde (80-100): Muito Popular
+  - 🔵 Azul (60-79): Popular
+  - 🟣 Roxo (40-59): Moderado
+  - 🟠 Laranja (20-39): Baixo
+  - 🔴 Vermelho (0-19): Muito Baixo
+- Tooltip customizado com nome completo da música e valor de popularidade
+- Responsivo e otimizado para mobile
+- Truncamento inteligente de nomes longos no eixo Y
+- Legenda explicativa das faixas de popularidade
+
+**Implementação:**
+- Componente: `src/components/charts/TopTracksPopularityChart.tsx`
+- Dados: Obtidos via `useArtistTopTracks` hook (React Query)
+- Design: Segue o design system do Tailwind CSS com variáveis CSS do tema
+
+### 2. Gráfico de Popularidade vs Duração
+
+**Localização:** Página de detalhes do artista (`/artist/:artistId`)
+
+**Tipo:** Scatter Plot (Gráfico de Dispersão)
+
+**Características:**
+- Mostra a relação entre duração das músicas (em minutos) e sua popularidade
+- Cada ponto representa uma música das Top Tracks
+- Cores dos pontos seguem o mesmo padrão de popularidade do primeiro gráfico
+- Tooltip interativo mostrando nome da música, duração (mm:ss) e popularidade
+- Eixos com labels descritivos em português/inglês
+- Painel de insights com estatísticas:
+  - **Duração Média**: Média de duração de todas as top tracks
+  - **Popularidade Média**: Média de popularidade das músicas
+- Responsivo para diferentes tamanhos de tela
+
+**Insights Possíveis:**
+- Identificar se músicas mais longas tendem a ser mais ou menos populares
+- Detectar outliers (músicas muito longas ou muito curtas com alta popularidade)
+- Compreender padrões de consumo do público do artista
+
+**Implementação:**
+- Componente: `src/components/charts/PopularityDurationScatterChart.tsx`
+- Dados: Mesma fonte do primeiro gráfico (`useArtistTopTracks`)
+- Conversões: Duração convertida de millisegundos para minutos decimais
+- Formatação: Display em formato mm:ss no tooltip
+
 ## 🌐 Internacionalização (i18n)
 
 A aplicação suporta dois idiomas:

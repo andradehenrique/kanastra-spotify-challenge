@@ -9,6 +9,7 @@ import {
   TableHeader,
   TableRow,
   Pagination,
+  Button,
 } from '@/components/ui';
 import type { SpotifyTrack } from '@/@types/spotify';
 import { useTranslation, useFavorites } from '@/hooks';
@@ -82,14 +83,13 @@ export function TopTracksTable({ tracks, itemsPerPage = 10 }: TopTracksTableProp
               <TableHead>{t('tracks.album')}</TableHead>
               <TableHead className="text-center">{t('tracks.duration')}</TableHead>
               <TableHead className="text-center">{t('tracks.popularity')}</TableHead>
-              <TableHead className="text-center">{t('tracks.preview')}</TableHead>
               <TableHead className="w-12 text-center">❤️</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {currentTracks.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={7} className="h-24 text-center">
+                <TableCell colSpan={6} className="h-24 text-center">
                   <span className="text-muted-foreground">{t('common.noResults')}</span>
                 </TableCell>
               </TableRow>
@@ -141,27 +141,11 @@ export function TopTracksTable({ tracks, itemsPerPage = 10 }: TopTracksTableProp
                     </div>
                   </TableCell>
                   <TableCell className="text-center">
-                    {track.preview_url ? (
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          const audio = new Audio(track.preview_url!);
-                          audio.play();
-                        }}
-                        className="text-primary hover:text-primary/80 inline-flex items-center gap-1 text-sm transition-colors"
-                      >
-                        <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M8 5v14l11-7z" />
-                        </svg>
-                      </button>
-                    ) : (
-                      <span className="text-muted-foreground text-xs">—</span>
-                    )}
-                  </TableCell>
-                  <TableCell className="text-center">
-                    <button
+                    <Button
+                      variant="ghost"
+                      size="icon"
                       onClick={(e) => handleToggleFavorite(e, track)}
-                      className="inline-flex transition-transform hover:scale-110"
+                      className="h-8 w-8 transition-transform hover:scale-110"
                       title={
                         isFavorite(track.id)
                           ? t('favorites.removeFromFavorites')
@@ -175,7 +159,7 @@ export function TopTracksTable({ tracks, itemsPerPage = 10 }: TopTracksTableProp
                             : 'text-muted-foreground'
                         }`}
                       />
-                    </button>
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))

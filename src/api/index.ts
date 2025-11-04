@@ -1,10 +1,3 @@
-/**
- * API do Spotify - Exports centralizados
- *
- * Importação facilitada:
- * import { searchArtists, getArtistById } from '@/api';
- */
-
 // Instância do Axios configurada
 export { default as spotifyApi } from './axios';
 
@@ -15,6 +8,7 @@ export { SPOTIFY_CONFIG, validateSpotifyCredentials } from './config';
 export {
   searchArtists,
   searchAlbums,
+  searchTracks,
   getArtistById,
   getArtistTopTracks,
   getArtistAlbums,

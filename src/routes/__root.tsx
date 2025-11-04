@@ -5,6 +5,7 @@ import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import { queryClient } from '@/lib/queryClient';
 import { FavoritesProvider } from '@/context/FavoritesContext';
 import { Header, Footer } from '@/components/layout';
+import { Toaster } from '@/components/ui/sonner';
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -25,6 +26,7 @@ function RootComponent() {
           <ReactQueryDevtools initialIsOpen={false} />
         </FavoritesProvider>
       </QueryClientProvider>
+      <Toaster />
       <TanStackRouterDevtools />
     </>
   );

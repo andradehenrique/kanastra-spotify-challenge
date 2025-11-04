@@ -3,6 +3,7 @@ import type {
   SpotifyArtist,
   SpotifySearchArtistsResponse,
   SpotifySearchAlbumsResponse,
+  SpotifySearchTracksResponse,
   SpotifySearchParams,
   SpotifyPaginationParams,
   SpotifyPagingObject,
@@ -60,6 +61,33 @@ export const searchAlbums = async (
   });
 
   return response.data.albums;
+};
+
+/**
+ * Busca tracks por nome
+ * @param query - Termo de busca
+ * @param limit - Número de resultados (padrão: 10)
+ * @param offset - Offset para paginação (padrão: 0)
+ * @returns Lista paginada de tracks
+ */
+export const searchTracks = async (
+  query: string,
+  limit: number = 10,
+  offset: number = 0
+): Promise<SpotifyPagingObject<SpotifyTrack>> => {
+  const params: SpotifySearchParams = {
+    q: query,
+    type: 'track',
+    limit,
+    offset,
+    market: 'BR',
+  };
+
+  const response = await spotifyApi.get<SpotifySearchTracksResponse>('/search', {
+    params,
+  });
+
+  return response.data.tracks;
 };
 
 /**

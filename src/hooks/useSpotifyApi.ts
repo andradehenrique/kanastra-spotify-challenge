@@ -2,6 +2,7 @@ import { useQuery, type UseQueryResult } from '@tanstack/react-query';
 import {
   searchArtists,
   searchAlbums,
+  searchTracks,
   getArtistById,
   getArtistTopTracks,
   getArtistAlbums,
@@ -105,5 +106,26 @@ export const useArtistAlbums = (
     queryKey: ['artists', artistId, 'albums', limit, offset],
     queryFn: () => getArtistAlbums(artistId, { limit, offset }),
     enabled: enabled && !!artistId,
+  });
+};
+
+/**
+ * Hook para buscar tracks
+ * @param query - Termo de busca
+ * @param limit - Número de resultados (padrão: 10)
+ * @param offset - Offset para paginação (padrão: 0)
+ * @param enabled - Habilita ou desabilita a query
+ * @return Lista paginada de tracks
+ */
+export const useSearchTracks = (
+  query: string,
+  limit: number = 10,
+  offset: number = 0,
+  enabled: boolean = true
+): UseQueryResult<SpotifyPagingObject<SpotifyTrack>> => {
+  return useQuery({
+    queryKey: ['tracks', 'search', query, limit, offset],
+    queryFn: () => searchTracks(query, limit, offset),
+    enabled: enabled && query.length > 0,
   });
 };

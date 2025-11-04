@@ -148,6 +148,13 @@ export interface SpotifySearchAlbumsResponse {
 }
 
 /**
+ * Resposta de busca de tracks
+ */
+export interface SpotifySearchTracksResponse {
+  tracks: SpotifyPagingObject<SpotifyTrack>;
+}
+
+/**
  * Parâmetros de busca
  */
 export interface SpotifySearchParams {

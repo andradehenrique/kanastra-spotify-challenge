@@ -1,4 +1,6 @@
 import { useState, useRef } from 'react';
+import { Heart } from 'lucide-react';
+import { toast } from 'sonner';
 import {
   Table,
   TableBody,
@@ -9,7 +11,7 @@ import {
   Pagination,
 } from '@/components/ui';
 import type { SpotifyTrack } from '@/@types/spotify';
-import { useTranslation } from '@/hooks';
+import { useTranslation, useFavorites } from '@/hooks';
 
 interface TopTracksTableProps {
   tracks: SpotifyTrack[];
@@ -18,6 +20,7 @@ interface TopTracksTableProps {
 
 export function TopTracksTable({ tracks, itemsPerPage = 10 }: TopTracksTableProps) {
   const { t } = useTranslation();
+  const { addSong, removeSong, isFavorite, getFavoriteByTrackId } = useFavorites();
   const [currentPage, setCurrentPage] = useState(1);
   const tableRef = useRef<HTMLDivElement>(null);
 
@@ -33,6 +36,30 @@ export function TopTracksTable({ tracks, itemsPerPage = 10 }: TopTracksTableProp
 
   const handleRowClick = (trackUrl: string) => {
     window.open(trackUrl, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleToggleFavorite = (e: React.MouseEvent, track: SpotifyTrack) => {
+    e.stopPropagation();
+
+    const isCurrentlyFavorite = isFavorite(track.id);
+
+    if (isCurrentlyFavorite) {
+      const favorite = getFavoriteByTrackId(track.id);
+      if (favorite) {
+        removeSong(favorite.id);
+        toast.success(t('favorites.removed'));
+      }
+    } else {
+      addSong({
+        songName: track.name,
+        artistName: track.artists.map((a) => a.name).join(', '),
+        albumName: track.album.name,
+        spotifyTrackId: track.id,
+        spotifyArtistId: track.artists[0]?.id,
+        imageUrl: track.album.images[0]?.url,
+      });
+      toast.success(t('favorites.added'));
+    }
   };
 
   return (
@@ -56,12 +83,13 @@ export function TopTracksTable({ tracks, itemsPerPage = 10 }: TopTracksTableProp
               <TableHead className="text-center">{t('tracks.duration')}</TableHead>
               <TableHead className="text-center">{t('tracks.popularity')}</TableHead>
               <TableHead className="text-center">{t('tracks.preview')}</TableHead>
+              <TableHead className="w-12 text-center">❤️</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {currentTracks.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={6} className="h-24 text-center">
+                <TableCell colSpan={7} className="h-24 text-center">
                   <span className="text-muted-foreground">{t('common.noResults')}</span>
                 </TableCell>
               </TableRow>
@@ -129,6 +157,25 @@ export function TopTracksTable({ tracks, itemsPerPage = 10 }: TopTracksTableProp
                     ) : (
                       <span className="text-muted-foreground text-xs">—</span>
                     )}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    <button
+                      onClick={(e) => handleToggleFavorite(e, track)}
+                      className="inline-flex transition-transform hover:scale-110"
+                      title={
+                        isFavorite(track.id)
+                          ? t('favorites.removeFromFavorites')
+                          : t('favorites.addToFavorites')
+                      }
+                    >
+                      <Heart
+                        className={`h-5 w-5 ${
+                          isFavorite(track.id)
+                            ? 'fill-red-500 text-red-500'
+                            : 'text-muted-foreground'
+                        }`}
+                      />
+                    </button>
                   </TableCell>
                 </TableRow>
               ))

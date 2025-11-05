@@ -4,36 +4,14 @@ import { useTranslation } from '@/hooks/useTranslation';
 import { ArrowLeft, ArrowRight } from './icons';
 
 export interface PaginationProps {
-  /**
-   * Página atual (baseada em 1)
-   */
   currentPage: number;
-  /**
-   * Total de páginas
-   */
   totalPages: number;
-  /**
-   * Callback chamado quando a página muda
-   */
   onPageChange: (page: number) => void;
-  /**
-   * Número total de itens (opcional, para mostrar informações)
-   */
   totalItems?: number;
-  /**
-   * Itens por página (opcional, para mostrar informações)
-   */
   itemsPerPage?: number;
-  /**
-   * Classe CSS adicional
-   */
   className?: string;
 }
 
-/**
- * Componente de Paginação customizado
- * Exibe controles de navegação Previous/Next e informações da página atual
- */
 export function Pagination({
   currentPage,
   totalPages,

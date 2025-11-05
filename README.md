@@ -1,343 +1,89 @@
-# Spotify Challenge - Staff Frontend Engineer
-
-Aplicação para listar artistas do Spotify com busca, filtros e detalhes, utilizando a API pública do Spotify.
-
-## 🚀 Stack Tecnológica
-
-- **React 19** + **TypeScript**
-- **Vite** - Build tool
-- **Tailwind CSS** - Estilização
-- **Axios** - Cliente HTTP
-- **Context API** + `useReducer` - Gerenciamento de estado
-- **React Query** - Data fetching e cache
-- **React Hook Form** + **Zod** - Formulários e validação
-- **i18n** - Internacionalização (PT-BR / EN-US)
-- **Recharts** - Visualização de dados
-
-## 📋 Pré-requisitos
-
-- Node.js 18+ e npm/yarn
-- Credenciais da API do Spotify (Client ID e Client Secret)
-
-## 🔑 Configurando as Credenciais do Spotify
-
-### Passo 1: Criar uma aplicação no Spotify Developer Dashboard
-
-1. Acesse [Spotify for Developers](https://developer.spotify.com/dashboard)
-2. Faça login com sua conta Spotify
-3. Clique em **"Create app"**
-4. Preencha os dados:
-   - **App name**: `Spotify Challenge` (ou qualquer nome)
-   - **App description**: Aplicação para desafio técnico
-   - **Redirect URI**: `http://localhost:5173` (não é necessário para Client Credentials Flow)
-   - Marque a checkbox concordando com os Termos
-5. Clique em **"Save"**
-
-### Passo 2: Obter Client ID e Client Secret
-
-1. Na página da sua aplicação, clique em **"Settings"**
-2. Você verá o **Client ID** (copie-o)
-3. Clique em **"View client secret"** para ver o **Client Secret** (copie-o)
-
-### Passo 3: Configurar as variáveis de ambiente
-
-1. Copie o arquivo `.env.example` para `.env`:
-
-```bash
-cp .env.example .env
-```
-
-2. Edite o arquivo `.env` e adicione suas credenciais:
-
-```env
-VITE_SPOTIFY_CLIENT_ID=seu_client_id_aqui
-VITE_SPOTIFY_CLIENT_SECRET=seu_client_secret_aqui
-```
-
-⚠️ **IMPORTANTE**: O arquivo `.env` está no `.gitignore` e não deve ser commitado!
-
-## 📦 Instalação
-
-```bash
-# Instalar dependências
-npm install
-
-# Iniciar servidor de desenvolvimento
-npm run dev
-```
-
-A aplicação estará disponível em `http://localhost:5173`
-
-## 🏗️ Arquitetura do Projeto
-
-Este projeto segue uma arquitetura baseada em **features** com separação clara entre componentes "burros" (UI) e "inteligentes" (lógica de negócio).
-
-```
-src/
-├── @types/              # Definições de tipos TypeScript
-│   └── spotify.ts       # Tipos da API do Spotify
-├── api/                 # Configuração e funções da API
-│   ├── axios.ts         # Instância configurada do Axios + interceptors
-│   ├── config.ts        # Configurações da API
-│   └── spotify.ts       # Funções para consumir a API do Spotify
-├── components/
-│   ├── layout/          # Header, Footer, PageWrapper (mobile-first)
-│   ├── ui/              # Componentes base do Shadcn UI
-│   └── charts/          # Componentes de gráficos (Recharts)
-├── context/             # Context API + useReducer
-│   └── FavoritesContext.tsx  # Gerenciamento de músicas favoritas + Local Storage
-├── features/            # Componentes "smart" (contêineres)
-│   ├── artist-search/   # Listagem e busca de artistas
-│   ├── artist-details/  # Detalhes do artista
-│   └── favorites-form/  # Formulário de músicas favoritas
-├── hooks/               # Custom hooks
-│   ├── useFavorites.ts  # Hook para consumir FavoritesContext
-│   ├── useSpotifyApi.ts # Hooks do React Query para API do Spotify
-│   └── useTranslation.ts # Hook para i18n
-├── lib/                 # Utilitários e configurações
-│   ├── i18n.ts          # Configuração do i18next
-│   ├── queryClient.ts   # Configuração do React Query
-│   └── utils.ts         # Funções utilitárias
-├── locales/             # Arquivos de tradução
-│   ├── en-US.json       # Inglês americano
-│   └── pt-BR.json       # Português brasileiro
-├── routes/              # Rotas do TanStack Router (file-based routing)
-│   ├── __root.tsx       # Layout principal + providers
-│   ├── index.tsx        # Página inicial (listagem/busca)
-│   └── artist/
-│       └── $artistId.tsx # Página de detalhes do artista
-├── schemas/             # Schemas Zod para validação
-│   └── favoriteSongSchema.ts
-└── routeTree.gen.ts     # Gerado automaticamente pelo TanStack Router
-```
-
-### Decisões de Arquitetura
-
-#### 🎯 Separação de State Management
-
-**Server State (React Query)**
-- Gerencia dados da API do Spotify (artistas, álbuns, tracks)
-- Cache automático e revalidação
-- Loading/error states otimizados
-
-**Client State (Context API + useReducer)**
-- Gerencia músicas favoritas
-- Persiste no Local Storage
-- Usado exclusivamente para funcionalidades locais
-
-#### 🚀 TanStack Router
-
-- **File-based routing** para rotas type-safe
-- Navegação simplificada e otimizada
-- Code splitting automático
-- Integração nativa com React Query
-
-#### 📱 Design Mobile-First
-
-- Layout responsivo construído de baixo para cima
-- Componentes otimizados para telas pequenas
-- Breakpoints do Tailwind (md:, lg:) para desktop
-
-#### 🎨 UI com Shadcn UI
-
-- Componentes acessíveis e customizáveis
-- Construídos em cima do Tailwind CSS
-- Copiar e colar (sem dependências pesadas)
-- Mantém controle total do código
-
-## 🔐 Autenticação com a API do Spotify
-
-Este projeto utiliza o **Client Credentials Flow** do Spotify:
-
-- O token de acesso é obtido automaticamente via interceptor do Axios
-- O token é armazenado em memória e renovado automaticamente quando expira
-- Todos os requests para a API do Spotify incluem automaticamente o `Authorization` header
-
-### Como funciona
-
-1. O arquivo `src/api/axios.ts` contém a lógica de autenticação
-2. Antes de cada requisição, o interceptor verifica se há um token válido
-3. Se não houver ou se estiver expirado, um novo token é solicitado
-4. Em caso de erro 401, o token é renovado automaticamente
-
-## 🛠️ Scripts Disponíveis
-
-```bash
-npm run dev        # Inicia o servidor de desenvolvimento
-npm run build      # Compila para produção
-npm run preview    # Preview da build de produção
-npm run lint       # Executa o ESLint
-npm run lint:fix   # Corrige problemas do ESLint automaticamente
-```
-
-## 📚 Recursos da API Implementados
-
-- ✅ Busca de artistas por nome
-- ✅ Detalhes de um artista específico
-- ✅ Top tracks de um artista
-- ✅ Álbuns de um artista (paginado)
-- ✅ Artistas relacionados
-- ✅ Detalhes de um álbum
-- ✅ Tracks de um álbum (paginado)
-
-## 📊 Visualização de Dados (Gráficos)
-
-A aplicação utiliza **Recharts** para criar visualizações interativas e analíticas dos dados do Spotify.
-
-### 1. Gráfico de Popularidade das Top Tracks
-
-**Localização:** Página de detalhes do artista (`/artist/:artistId`)
-
-**Tipo:** Gráfico de Barras Horizontal
-
-**Características:**
-- Exibe a popularidade (0-100) das músicas mais populares do artista
-- Cores dinâmicas baseadas no nível de popularidade:
-  - 🟢 Verde (80-100): Muito Popular
-  - 🔵 Azul (60-79): Popular
-  - 🟣 Roxo (40-59): Moderado
-  - 🟠 Laranja (20-39): Baixo
-  - 🔴 Vermelho (0-19): Muito Baixo
-- Tooltip customizado com nome completo da música e valor de popularidade
-- Responsivo e otimizado para mobile
-- Truncamento inteligente de nomes longos no eixo Y
-- Legenda explicativa das faixas de popularidade
-
-**Implementação:**
-- Componente: `src/components/charts/TopTracksPopularityChart.tsx`
-- Dados: Obtidos via `useArtistTopTracks` hook (React Query)
-- Design: Segue o design system do Tailwind CSS com variáveis CSS do tema
-
-### 2. Gráfico de Popularidade vs Duração
-
-**Localização:** Página de detalhes do artista (`/artist/:artistId`)
-
-**Tipo:** Scatter Plot (Gráfico de Dispersão)
-
-**Características:**
-- Mostra a relação entre duração das músicas (em minutos) e sua popularidade
-- Cada ponto representa uma música das Top Tracks
-- Cores dos pontos seguem o mesmo padrão de popularidade do primeiro gráfico
-- Tooltip interativo mostrando nome da música, duração (mm:ss) e popularidade
-- Eixos com labels descritivos em português/inglês
-- Painel de insights com estatísticas:
-  - **Duração Média**: Média de duração de todas as top tracks
-  - **Popularidade Média**: Média de popularidade das músicas
-- Responsivo para diferentes tamanhos de tela
-
-**Insights Possíveis:**
-- Identificar se músicas mais longas tendem a ser mais ou menos populares
-- Detectar outliers (músicas muito longas ou muito curtas com alta popularidade)
-- Compreender padrões de consumo do público do artista
-
-**Implementação:**
-- Componente: `src/components/charts/PopularityDurationScatterChart.tsx`
-- Dados: Mesma fonte do primeiro gráfico (`useArtistTopTracks`)
-- Conversões: Duração convertida de millisegundos para minutos decimais
-- Formatação: Display em formato mm:ss no tooltip
-
-## 🌐 Internacionalização (i18n)
-
-A aplicação suporta dois idiomas:
-- **PT-BR** (Português do Brasil) - padrão
-- **EN-US** (Inglês Americano)
-
-O usuário pode alternar entre os idiomas através do componente `LanguageToggle` no header.
-
-Todas as traduções estão em `src/locales/`.
-
-## Formulários e Validação
-
-Os formulários utilizam:
-- **React Hook Form** - Gerenciamento performático
-- **Zod** - Validação de schemas com type-safety
-- **@hookform/resolvers** - Integração entre RHF e Zod
-
-Exemplo de schema em `src/schemas/favoriteSongSchema.ts`.
-
-## �🔗 Links Úteis
-
-- [Documentação da API do Spotify](https://developer.spotify.com/documentation/web-api)
-- [Console da API do Spotify](https://developer.spotify.com/console)
-- [Dashboard do Spotify for Developers](https://developer.spotify.com/dashboard)
-
-## 📖 Documentação Adicional
-
-- [LIBS-SETUP.md](./docs/LIBS-SETUP.md) - Guia detalhado de configuração das bibliotecas
-- [NEXT-STEPS.md](./NEXT-STEPS.md) - Próximos passos do desenvolvimento
-
----
-
-## React + TypeScript + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+# Spotify Artist Explorer
+
+Este projeto é um desafio técnico para uma posição de Staff Frontend Engineer. É uma aplicação web para pesquisar, explorar e gerenciar informações sobre artistas do Spotify, construída com uma stack de tecnologia moderna e robusta.
+
+## Funcionalidades Principais
+
+- **Busca de Artistas**: Pesquise artistas no Spotify com resultados paginados.
+- **Detalhes do Artista**: Visualize informações detalhadas sobre um artista, incluindo suas faixas e álbuns mais populares.
+- **Visualização de Dados**: Gráficos interativos que exibem a popularidade das faixas e outras métricas.
+- **Gerenciamento de Favoritos**: Adicione e gerencie uma lista local de músicas favoritas.
+- **Internacionalização**: Suporte para Inglês (en-US) e Português (pt-BR).
+
+## Destaques da Arquitetura & Stack Tecnológica
+
+A arquitetura enfatiza uma clara separação de responsabilidades, segurança de tipos (type safety) e uma experiência de desenvolvimento moderna.
+
+- **Gerenciamento de Estado**:
+  - **Server State**: Gerenciado pelo **React Query** para todas as interações com a API do Spotify, fornecendo cache, revalidação e busca de dados otimizada.
+  - **Client State**: Gerenciado pela **Context API** do React com `useReducer` para o estado da interface do usuário local, como as músicas favoritas do usuário, persistido no Local Storage.
+
+- **Roteamento**:
+  - O **TanStack Router** é usado para roteamento baseado em arquivos e com tipagem segura, permitindo a divisão automática de código (code splitting) e integração perfeita com hooks de busca de dados.
+
+- **UI & Estilização**:
+  - **Tailwind CSS** para uma abordagem de estilização utility-first.
+  - **Shadcn/ui** para um conjunto de componentes de UI acessíveis e componentizáveis, permitindo um desenvolvimento rápido sem sacrificar o controle sobre o código.
+
+### Stack Tecnológica Completa
+
+- **Framework**: React 19
+- **Linguagem**: TypeScript
+- **Build Tool**: Vite
+- **Testes**: Vitest
+- **Estilização**: Tailwind CSS
+- **Componentes de UI**: Shadcn/ui
+- **Busca de Dados**: React Query & Axios
+- **Roteamento**: TanStack Router
+- **Formulários**: React Hook Form & Zod
+- **Gráficos**: Recharts
+- **i18n**: i18next
+
+## Começando
+
+### Pré-requisitos
+
+- Node.js v18+
+- npm ou yarn
+- Uma conta de desenvolvedor do Spotify com credenciais de API (Client ID e Client Secret).
+
+### Configuração
+
+1.  **Clone o repositório:**
+    ```bash
+    git clone https://github.com/andradehenrique/kanastra-spotify-challenge.git
+    cd kanastra-spotify-challenge
+    ```
+
+2.  **Instale as dependências:**
+    ```bash
+    npm install
+    ```
+
+3.  **Configure as variáveis de ambiente:**
+    Crie um arquivo `.env` no diretório raiz copiando o arquivo de exemplo:
+    ```bash
+    cp .env.example .env
+    ```
+    Em seguida, adicione suas credenciais da API do Spotify ao arquivo `.env`:
+    ```
+    VITE_SPOTIFY_CLIENT_ID=seu_client_id_do_spotify
+    VITE_SPOTIFY_CLIENT_SECRET=seu_client_secret_do_spotify
+    ```
+
+4.  **Execute o servidor de desenvolvimento:**
+    ```bash
+    npm run dev
+    ```
+    A aplicação estará disponível em `http://localhost:5173`.
+
+## Scripts Disponíveis
+
+- `npm run dev`: Inicia o servidor de desenvolvimento em `localhost`.
+- `npm run build`: Compila a aplicação para produção.
+- `npm run preview`: Visualiza a build de produção localmente.
+- `npm run test`: Executa os testes unitários uma vez.
+- `npm run test:ui`: Inicia o Vitest em modo UI para uma experiência de teste interativa.
+- `npm run test:coverage`: Gera um relatório de cobertura de testes.
+- `npm run lint`: Executa o ESLint para análise estática do código.
+- `npm run lint:fix`: Corrige automaticamente os problemas de linting reportados pelo ESLint.

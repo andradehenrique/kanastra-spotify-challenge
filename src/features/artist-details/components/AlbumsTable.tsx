@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from '@/hooks';
 import { useArtistAlbums } from '@/hooks/useSpotifyApi';
+import { formatDate, getAlbumTypeLabel } from '@/lib/utils';
 import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from '@/components/ui';
 import { SimplePagination } from '@/components/ui/pagination';
 
@@ -19,28 +20,6 @@ export function AlbumsTable({ artistId }: AlbumsTableProps) {
   const { data, isLoading, isError } = useArtistAlbums(artistId, ITEMS_PER_PAGE, offset, true);
 
   const totalPages = data ? Math.ceil(data.total / ITEMS_PER_PAGE) : 0;
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString(undefined, {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    });
-  };
-
-  const getAlbumTypeLabel = (type: string) => {
-    switch (type) {
-      case 'album':
-        return 'Álbum';
-      case 'single':
-        return 'Single';
-      case 'compilation':
-        return 'Compilação';
-      default:
-        return type;
-    }
-  };
 
   const handleRowClick = (albumUrl: string) => {
     window.open(albumUrl, '_blank', 'noopener,noreferrer');

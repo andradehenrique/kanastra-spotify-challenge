@@ -1,6 +1,8 @@
 import { useReducer } from 'react';
 import type { ReactNode } from 'react';
 import { FavoritesContext } from './favoritesContext';
+import { loadFromStorage, saveToStorage, generateUniqueId } from '@/lib/utils';
+import { STORAGE_KEYS } from '@/lib/constants';
 import type {
   FavoriteSong,
   FavoritesState,
@@ -8,30 +10,8 @@ import type {
   FavoritesContextType,
 } from './FavoritesContext.types';
 
-const STORAGE_KEY = 'spotify-favorites';
-
-function loadFromStorage(): FavoriteSong[] {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      return JSON.parse(stored) as FavoriteSong[];
-    }
-  } catch (error) {
-    console.error('Erro ao carregar favoritos do Local Storage:', error);
-  }
-  return [];
-}
-
-function saveToStorage(songs: FavoriteSong[]): void {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(songs));
-  } catch (error) {
-    console.error('Erro ao salvar favoritos no Local Storage:', error);
-  }
-}
-
 const initialState: FavoritesState = {
-  songs: loadFromStorage(),
+  songs: loadFromStorage<FavoriteSong[]>(STORAGE_KEYS.FAVORITES, []),
 };
 
 function favoritesReducer(state: FavoritesState, action: FavoritesAction): FavoritesState {
@@ -62,25 +42,25 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
   const addSong = (song: Omit<FavoriteSong, 'id' | 'createdAt'>) => {
     const newSong: FavoriteSong = {
       ...song,
-      id: `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
+      id: generateUniqueId(),
       createdAt: new Date().toISOString(),
     };
     dispatch({ type: 'ADD_SONG', payload: newSong });
 
     const updatedSongs = [...state.songs, newSong];
-    saveToStorage(updatedSongs);
+    saveToStorage(STORAGE_KEYS.FAVORITES, updatedSongs);
   };
 
   const removeSong = (id: string) => {
     dispatch({ type: 'REMOVE_SONG', payload: id });
 
     const updatedSongs = state.songs.filter((song) => song.id !== id);
-    saveToStorage(updatedSongs);
+    saveToStorage(STORAGE_KEYS.FAVORITES, updatedSongs);
   };
 
   const clearAll = () => {
     dispatch({ type: 'CLEAR_ALL' });
-    saveToStorage([]);
+    saveToStorage(STORAGE_KEYS.FAVORITES, []);
   };
 
   const isFavorite = (spotifyTrackId: string): boolean => {

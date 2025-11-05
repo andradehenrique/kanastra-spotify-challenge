@@ -1,5 +1,6 @@
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { formatNumber } from '@/lib/utils';
 import type { SpotifyArtist } from '@/@types/spotify';
 
 interface ArtistCardProps {
@@ -88,21 +89,10 @@ export function ArtistCard({ artist, onClick }: ArtistCardProps) {
                 d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
               />
             </svg>
-            <span>{formatFollowers(artist.followers.total)}</span>
+            <span>{formatNumber(artist.followers.total)}</span>
           </div>
         )}
       </div>
     </Card>
   );
-}
-
-// Função auxiliar para formatar número de seguidores
-function formatFollowers(count: number): string {
-  if (count >= 1_000_000) {
-    return `${(count / 1_000_000).toFixed(1)}M`;
-  }
-  if (count >= 1_000) {
-    return `${(count / 1_000).toFixed(1)}K`;
-  }
-  return count.toString();
 }

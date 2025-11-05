@@ -11,6 +11,7 @@ import {
   Pagination,
   Button,
 } from '@/components/ui';
+import { formatDuration } from '@/lib/utils';
 import type { SpotifyTrack } from '@/@types/spotify';
 import { useTranslation, useFavorites } from '@/hooks';
 
@@ -180,12 +181,4 @@ export function TopTracksTable({ tracks, itemsPerPage = 10 }: TopTracksTableProp
       )}
     </div>
   );
-}
-
-// Função auxiliar para formatar duração
-function formatDuration(ms: number): string {
-  const totalSeconds = Math.floor(ms / 1000);
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
-  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }

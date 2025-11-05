@@ -1,5 +1,6 @@
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { getAlbumTypeLabel } from '@/lib/utils';
 import type { SpotifyAlbumSimplified } from '@/@types/spotify';
 
 interface AlbumCardProps {
@@ -47,7 +48,7 @@ export function AlbumCard({ album, onClick }: AlbumCardProps) {
         {/* Badge do Tipo de Álbum */}
         <div className="absolute top-2 right-2">
           <Badge variant="secondary" className="bg-background/80 text-xs backdrop-blur-sm">
-            {formatAlbumType(album.album_type)}
+            {getAlbumTypeLabel(album.album_type)}
           </Badge>
         </div>
       </div>
@@ -93,15 +94,4 @@ export function AlbumCard({ album, onClick }: AlbumCardProps) {
       </div>
     </Card>
   );
-}
-
-// Função auxiliar para formatar tipo de álbum
-function formatAlbumType(type: 'album' | 'single' | 'compilation'): string {
-  const types: Record<string, string> = {
-    album: 'Album',
-    single: 'Single',
-    compilation: 'Compilation',
-  };
-
-  return types[type] || type;
 }

@@ -20,7 +20,7 @@ export function PageWrapper({ children, className, maxWidth = '2xl' }: PageWrapp
   return (
     <main
       className={cn(
-        'container mx-auto flex-1 px-4 py-6 md:px-8 md:py-8',
+        'container mx-auto flex-1 px-4 py-6 md:p-8',
         maxWidthClasses[maxWidth],
         className
       )}

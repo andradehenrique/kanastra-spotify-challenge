@@ -12,6 +12,7 @@ import {
 import { Clock, TrendingUp } from 'lucide-react';
 import { Card } from '@/components/ui';
 import { useTranslation } from '@/hooks';
+import { msToMinutes, formatDuration, getPopularityColor } from '@/lib/utils';
 import type { SpotifyTrack } from '@/@types/spotify';
 
 interface PopularityDurationScatterChartProps {
@@ -28,16 +29,6 @@ interface ChartDataItem {
 
 export function PopularityDurationScatterChart({ tracks }: PopularityDurationScatterChartProps) {
   const { t } = useTranslation();
-
-  const msToMinutes = (ms: number): number => {
-    return Number((ms / 60000).toFixed(2));
-  };
-
-  const formatDuration = (ms: number): string => {
-    const minutes = Math.floor(ms / 60000);
-    const seconds = Math.floor((ms % 60000) / 1000);
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
-  };
 
   const chartData: ChartDataItem[] = tracks.map((track) => ({
     name: track.name,
@@ -81,17 +72,7 @@ export function PopularityDurationScatterChart({ tracks }: PopularityDurationSca
 
   const CustomDot = (props: { cx?: number; cy?: number; payload?: ChartDataItem }) => {
     const { cx, cy, payload } = props;
-    let fill = 'hsl(0, 84%, 60%)'; // Vermelho (baixa)
-
-    if (payload && payload.popularity >= 80) {
-      fill = 'hsl(142, 76%, 36%)'; // Verde
-    } else if (payload && payload.popularity >= 60) {
-      fill = 'hsl(221, 83%, 53%)'; // Azul
-    } else if (payload && payload.popularity >= 40) {
-      fill = 'hsl(262, 83%, 58%)'; // Roxo
-    } else if (payload && payload.popularity >= 20) {
-      fill = 'hsl(25, 95%, 53%)'; // Laranja
-    }
+    const fill = getPopularityColor(payload?.popularity ?? 0);
 
     return (
       <circle
@@ -150,45 +131,21 @@ export function PopularityDurationScatterChart({ tracks }: PopularityDurationSca
             wrapperStyle={{ paddingTop: '20px' }}
             content={() => (
               <div className="flex flex-wrap justify-center gap-4 text-xs">
-                <div className="flex items-center gap-2">
-                  <div
-                    className="h-3 w-3 rounded-full"
-                    style={{ backgroundColor: 'hsl(142, 76%, 36%)' }}
-                  />
-                  <span className="text-muted-foreground">80-100</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div
-                    className="h-3 w-3 rounded-full"
-                    style={{ backgroundColor: 'hsl(221, 83%, 53%)' }}
-                  />
-                  <span className="text-muted-foreground">60-79</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div
-                    className="h-3 w-3 rounded-full"
-                    style={{ backgroundColor: 'hsl(262, 83%, 58%)' }}
-                  />
-                  <span className="text-muted-foreground">40-59</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div
-                    className="h-3 w-3 rounded-full"
-                    style={{ backgroundColor: 'hsl(25, 95%, 53%)' }}
-                  />
-                  <span className="text-muted-foreground">20-39</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div
-                    className="h-3 w-3 rounded-full"
-                    style={{ backgroundColor: 'hsl(0, 84%, 60%)' }}
-                  />
-                  <span className="text-muted-foreground">0-19</span>
-                </div>
+                {[80, 60, 40, 20, 0].map((threshold) => (
+                  <div key={threshold} className="flex items-center gap-2">
+                    <div
+                      className="h-3 w-3 rounded-full"
+                      style={{ backgroundColor: getPopularityColor(threshold) }}
+                    />
+                    <span className="text-muted-foreground">
+                      {threshold === 0 ? '0-19' : `${threshold}-${threshold + 19}`}
+                    </span>
+                  </div>
+                ))}
               </div>
             )}
           />
-          <Scatter name="Tracks" data={chartData} fill="hsl(221, 83%, 53%)" shape={<CustomDot />} />
+          <Scatter name="Tracks" data={chartData} shape={<CustomDot />} />
         </ScatterChart>
       </ResponsiveContainer>
 

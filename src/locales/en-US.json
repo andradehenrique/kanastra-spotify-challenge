@@ -1,50 +1,42 @@
 {
   "common": {
-    "search": "Search",
     "loading": "Loading...",
     "error": "Error loading data",
     "noResults": "No results found",
     "back": "Back",
     "close": "Close",
-    "save": "Save",
-    "cancel": "Cancel",
     "next": "Next",
     "previous": "Previous",
     "page": "Page",
-    "of": "of"
+    "of": "of",
+    "showing": "Showing",
+    "to": "to",
+    "results": "results"
   },
   "header": {
     "title": "Spotify Challenge",
     "language": "Language"
   },
   "home": {
-    "title": "Search Artists",
     "searchPlaceholder": "Type artist or album name...",
     "searchByArtist": "Search by Artist",
-    "searchByAlbum": "Search by Album",
     "artists": "Artists",
     "albums": "Albums",
-    "resultsCount": "{{count}} artist(s) found",
-    "albumResultsCount": "{{count}} album(s) found",
     "resultsFor": "Results for \"{{term}}\"",
     "noResultsFor": "No artists found for \"{{term}}\". Try a different search term.",
-    "noAlbumsResultsFor": "No albums found for \"{{term}}\". Try a different search term.",
     "clearSearch": "Clear search",
     "searchHint": "Type at least 2 characters to search",
-    "itemsPerPage": "items per page",
     "welcomeTitle": "Discover your favorite artists",
     "welcomeDescription": "Use the search above to find artists, explore albums, and discover amazing music from Spotify.",
     "trySearching": "Try searching for",
     "tryDifferentSearch": "Try using different keywords or check the spelling."
   },
   "artist": {
-    "details": "Artist Details",
     "followers": "Followers",
     "genres": "Genres",
     "popularity": "Popularity",
     "topTracks": "Top Tracks",
     "albums": "Albums",
-    "noGenres": "No genres defined",
     "listenOn": "Listen on Spotify",
     "tabs": {
       "overview": "Overview",
@@ -56,12 +48,9 @@
     "name": "Name",
     "album": "Album",
     "duration": "Duration",
-    "popularity": "Popularity",
-    "releaseDate": "Release Date",
-    "preview": "Preview"
+    "popularity": "Popularity"
   },
   "albums": {
-    "title": "Albums",
     "name": "Name",
     "type": "Type",
     "tracks": "Tracks",
@@ -69,7 +58,6 @@
     "cover": "Cover"
   },
   "favorites": {
-    "title": "Favorite Songs",
     "addFavorite": "Add to Favorites",
     "myFavorites": "My Favorites",
     "noFavorites": "You don't have any favorite songs yet",
@@ -87,12 +75,6 @@
       "searchTrackHint": "Search and select a track from Spotify to add to favorites",
       "selectedTrack": "Selected Track",
       "noTracksFound": "No tracks found. Try a different search term.",
-      "songName": "Song Name",
-      "songNamePlaceholder": "Enter song name",
-      "artistName": "Artist Name",
-      "artistNamePlaceholder": "Enter artist name",
-      "albumName": "Album Name",
-      "albumNamePlaceholder": "Enter album name (optional)",
       "notes": "Notes",
       "notesPlaceholder": "Add your notes about the song (optional)",
       "submit": "Add Favorite",
@@ -100,18 +82,12 @@
       "error": "Error adding song to favorites"
     },
     "validation": {
-      "songNameRequired": "Song name is required",
-      "songNameMin": "Song name must be at least 2 characters",
-      "artistNameRequired": "Artist name is required",
-      "artistNameMin": "Artist name must be at least 2 characters",
-      "albumNameMin": "Album name must be at least 2 characters",
       "notesMax": "Notes cannot exceed 500 characters"
     }
   },
   "charts": {
     "popularityTitle": "Top Tracks Popularity",
     "popularity": "Popularity",
-    "trackName": "Track",
     "popularityVsDuration": "Popularity vs Duration",
     "popularityVsDurationDescription": "Relationship between track duration and popularity",
     "avgDuration": "Average Duration",

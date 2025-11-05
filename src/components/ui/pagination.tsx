@@ -1,5 +1,6 @@
 import { Button } from './button';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export interface PaginationProps {
   /**
@@ -40,6 +41,7 @@ export function Pagination({
   itemsPerPage,
   className,
 }: PaginationProps) {
+  const { t } = useTranslation();
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === totalPages;
 
@@ -128,9 +130,9 @@ export function Pagination({
       {/* Informações de itens (opcional) */}
       {itemsInfo && (
         <div className="text-muted-foreground text-sm">
-          Showing <span className="font-medium">{itemsInfo.startItem}</span> to{' '}
-          <span className="font-medium">{itemsInfo.endItem}</span> of{' '}
-          <span className="font-medium">{totalItems}</span> results
+          {t('common.showing')} <span className="font-medium">{itemsInfo.startItem}</span>{' '}
+          {t('common.to')} <span className="font-medium">{itemsInfo.endItem}</span> {t('common.of')}{' '}
+          <span className="font-medium">{totalItems}</span> {t('common.results')}
         </div>
       )}
 
@@ -142,7 +144,7 @@ export function Pagination({
           size="sm"
           onClick={handlePrevious}
           disabled={isFirstPage}
-          aria-label="Go to previous page"
+          aria-label={t('common.previous')}
         >
           <svg
             className="h-4 w-4"
@@ -158,7 +160,7 @@ export function Pagination({
               d="M15 19l-7-7 7-7"
             />
           </svg>
-          <span className="ml-1">Previous</span>
+          <span className="ml-1">{t('common.previous')}</span>
         </Button>
 
         {/* Números das páginas */}
@@ -194,7 +196,7 @@ export function Pagination({
         {/* Indicador de página atual (mobile) */}
         <div className="text-muted-foreground flex items-center gap-2 text-sm sm:hidden">
           <span>
-            Page {currentPage} of {totalPages}
+            {t('common.page')} {currentPage} {t('common.of')} {totalPages}
           </span>
         </div>
 
@@ -204,9 +206,9 @@ export function Pagination({
           size="sm"
           onClick={handleNext}
           disabled={isLastPage}
-          aria-label="Go to next page"
+          aria-label={t('common.next')}
         >
-          <span className="mr-1">Next</span>
+          <span className="mr-1">{t('common.next')}</span>
           <svg
             className="h-4 w-4"
             xmlns="http://www.w3.org/2000/svg"
@@ -231,6 +233,7 @@ export function SimplePagination({
   onPageChange,
   className,
 }: Pick<PaginationProps, 'currentPage' | 'totalPages' | 'onPageChange' | 'className'>) {
+  const { t } = useTranslation();
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === totalPages;
 
@@ -260,13 +263,13 @@ export function SimplePagination({
         size="sm"
         onClick={handlePrevious}
         disabled={isFirstPage}
-        aria-label="Go to previous page"
+        aria-label={t('common.previous')}
       >
-        Previous
+        {t('common.previous')}
       </Button>
 
       <span className="text-muted-foreground text-sm">
-        Page <span className="font-medium">{currentPage}</span> of{' '}
+        {t('common.page')} <span className="font-medium">{currentPage}</span> {t('common.of')}{' '}
         <span className="font-medium">{totalPages}</span>
       </span>
 
@@ -275,9 +278,9 @@ export function SimplePagination({
         size="sm"
         onClick={handleNext}
         disabled={isLastPage}
-        aria-label="Go to next page"
+        aria-label={t('common.next')}
       >
-        Next
+        {t('common.next')}
       </Button>
     </nav>
   );

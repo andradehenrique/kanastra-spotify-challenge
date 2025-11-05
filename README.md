@@ -1,6 +1,10 @@
-# Spotify Artist Explorer
+# Spotify Challenge - Kanastra
 
 Este projeto é um desafio técnico para uma posição de Staff Frontend Engineer. É uma aplicação web para pesquisar, explorar e gerenciar informações sobre artistas do Spotify, construída com uma stack de tecnologia moderna e robusta.
+
+## 🚀 Demo ao Vivo
+
+Confira a aplicação funcionando em: [https://kanastra-spotify.henriqueandrade.dev/](https://kanastra-spotify.henriqueandrade.dev/)
 
 ## Funcionalidades Principais
 

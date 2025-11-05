@@ -61,9 +61,9 @@ export function ArtistHeader({ artist }: ArtistHeaderProps) {
           {/* Gêneros */}
           {artist.genres.length > 0 && (
             <div>
-              <h3 className="text-muted-foreground mb-2 text-sm font-medium">
+              <h2 className="text-muted-foreground mb-2 text-sm font-medium">
                 {t('artist.genres')}
-              </h3>
+              </h2>
               <div className="flex flex-wrap gap-2">
                 {artist.genres.slice(0, 6).map((genre) => (
                   <Badge key={genre} variant="secondary">

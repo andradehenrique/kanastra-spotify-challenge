@@ -26,6 +26,7 @@ export const STORAGE_KEYS = {
   FAVORITES: 'spotify-favorites',
   LANGUAGE: 'spotify-language',
   THEME: 'spotify-theme',
+  SPOTIFY_TOKEN: 'spotify-token',
 } as const;
 
 export const MILLISECONDS_PER_SECOND = 1000;

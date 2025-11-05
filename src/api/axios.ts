@@ -1,11 +1,5 @@
 import axios, { AxiosError, type AxiosInstance } from 'axios';
-
-const SPOTIFY_BASE_URL = 'https://api.spotify.com/v1';
-const SPOTIFY_ACCOUNTS_URL = 'https://accounts.spotify.com/api/token';
-
-// Configuração de credenciais (em produção, use variáveis de ambiente)
-const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID || '';
-const CLIENT_SECRET = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET || '';
+import { SPOTIFY_CONFIG, SPOTIFY_CREDENTIALS, validateSpotifyCredentials } from './config';
 
 /**
  * Interface para armazenar o token de acesso
@@ -28,11 +22,20 @@ const getAccessToken = async (): Promise<string> => {
     return spotifyToken.access_token;
   }
 
+  // Valida as credenciais antes de tentar obter o token
+  if (!validateSpotifyCredentials()) {
+    throw new Error(
+      'Credenciais do Spotify não configuradas. Configure VITE_SPOTIFY_CLIENT_ID e VITE_SPOTIFY_CLIENT_SECRET no arquivo .env'
+    );
+  }
+
   try {
-    const credentials = btoa(`${CLIENT_ID}:${CLIENT_SECRET}`);
+    const credentials = btoa(
+      `${SPOTIFY_CREDENTIALS.CLIENT_ID}:${SPOTIFY_CREDENTIALS.CLIENT_SECRET}`
+    );
 
     const response = await axios.post<SpotifyToken>(
-      SPOTIFY_ACCOUNTS_URL,
+      SPOTIFY_CONFIG.ACCOUNTS_URL,
       'grant_type=client_credentials',
       {
         headers: {
@@ -59,7 +62,7 @@ const getAccessToken = async (): Promise<string> => {
  * Instância configurada do Axios para a API do Spotify
  */
 export const spotifyApi: AxiosInstance = axios.create({
-  baseURL: SPOTIFY_BASE_URL,
+  baseURL: SPOTIFY_CONFIG.BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },

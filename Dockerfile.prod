@@ -45,6 +45,18 @@ COPY public ./public
 # Build Arguments (Environment Variables)
 # ==========================================
 # These are required at BUILD TIME for Vite to embed in the bundle
+#
+# ⚠️ SECURITY NOTE: These credentials will be embedded in the frontend bundle
+# and will be visible to end users. This is acceptable for a technical challenge
+# but NOT recommended for production environments.
+#
+# Production-ready approach:
+# - Implement a Backend for Frontend (BFF) to handle API credentials securely
+# - Use Authorization Code Flow instead of Client Credentials Flow
+# - Keep secrets server-side and proxy requests to Spotify API
+#
+# For this technical challenge, we're using Client Credentials Flow
+# directly in the frontend to focus on demonstrating frontend skills.
 ARG VITE_SPOTIFY_CLIENT_ID
 ARG VITE_SPOTIFY_CLIENT_SECRET
 

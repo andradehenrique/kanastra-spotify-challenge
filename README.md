@@ -10,6 +10,41 @@ Este projeto é um desafio técnico para uma posição de Staff Frontend Enginee
 - **Gerenciamento de Favoritos**: Adicione e gerencie uma lista local de músicas favoritas.
 - **Internacionalização**: Suporte para Inglês (en-US) e Português (pt-BR).
 
+## ⚠️ Nota de Segurança: Trade-offs Arquiteturais
+
+Este projeto foi desenvolvido como um **desafio técnico** com foco em demonstrar proficiência em tecnologias frontend modernas. Por isso, algumas decisões arquiteturais foram tomadas priorizando a simplicidade e o escopo do desafio:
+
+### Credenciais do Spotify no Frontend
+
+**Trade-off Atual:**
+- As credenciais da API do Spotify (`CLIENT_ID` e `CLIENT_SECRET`) são injetadas no bundle JavaScript durante o build via variáveis de ambiente Vite (`VITE_*`).
+- Isso significa que essas credenciais ficam **visíveis no código fonte do frontend** e podem ser extraídas por qualquer usuário através do DevTools.
+
+**Por que isso não é ideal para produção:**
+- O `CLIENT_SECRET` **nunca deveria** ser exposto no frontend, pois permite que qualquer pessoa faça requisições em nome da aplicação sem controle de rate limiting ou segurança adequada.
+- A API do Spotify recomenda usar o fluxo **Authorization Code Flow** ou manter as credenciais em um backend.
+
+**Arquitetura Ideal para Produção:**
+Em um ambiente de produção real, a solução adequada seria implementar um **Backend for Frontend (BFF)** que:
+
+1. **Mantém as credenciais no servidor** (variáveis de ambiente privadas).
+2. **Atua como proxy** para as requisições à API do Spotify.
+3. **Gerencia a autenticação OAuth** de forma segura (Authorization Code Flow com PKCE).
+4. **Implementa rate limiting** e controle de acesso por usuário.
+5. **Adiciona uma camada de cache** para otimizar as requisições.
+
+**Alternativas consideradas:**
+- **Serverless Functions** (Vercel/Netlify Edge Functions) para isolar as credenciais.
+- **API Gateway** com autenticação JWT para gerenciar tokens de acesso.
+- **Implementação do Authorization Code Flow** do Spotify (requer backend para trocar o código de autorização por tokens).
+
+**Justificativa para o Desafio:**
+Para os propósitos deste desafio técnico, optei por usar o **Client Credentials Flow** diretamente no frontend para:
+- Focar na demonstração de habilidades de frontend avançado (React, TypeScript, state management, etc.).
+- Manter o escopo gerenciável dentro do prazo.
+- Simplificar o setup e execução para os avaliadores (sem necessidade de configurar backend adicional).
+- Manter-se dentro da stack sugerida no desafio.
+
 ## Destaques da Arquitetura & Stack Tecnológica
 
 A arquitetura enfatiza uma clara separação de responsabilidades, segurança de tipos (type safety) e uma experiência de desenvolvimento moderna.

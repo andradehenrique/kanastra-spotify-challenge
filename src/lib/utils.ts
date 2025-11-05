@@ -82,12 +82,19 @@ export function getPopularityColor(popularity: number): string {
   return POPULARITY_COLORS.VERY_LOW;
 }
 
-export function getPopularityLabel(popularity: number): string {
-  if (popularity >= 80) return '80-100 (Muito Popular)';
-  if (popularity >= 60) return '60-79 (Popular)';
-  if (popularity >= 40) return '40-59 (Moderado)';
-  if (popularity >= 20) return '20-39 (Baixo)';
-  return '0-19 (Muito Baixo)';
+type PopularityRangeKey =
+  | 'charts.popularityRange.veryHigh'
+  | 'charts.popularityRange.high'
+  | 'charts.popularityRange.medium'
+  | 'charts.popularityRange.low'
+  | 'charts.popularityRange.veryLow';
+
+export function getPopularityLabelKey(popularity: number): PopularityRangeKey {
+  if (popularity >= 80) return 'charts.popularityRange.veryHigh';
+  if (popularity >= 60) return 'charts.popularityRange.high';
+  if (popularity >= 40) return 'charts.popularityRange.medium';
+  if (popularity >= 20) return 'charts.popularityRange.low';
+  return 'charts.popularityRange.veryLow';
 }
 
 export function getAlbumTypeLabel(type: string): string {

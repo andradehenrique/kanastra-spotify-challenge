@@ -10,7 +10,7 @@ import {
 } from 'recharts';
 import { Card } from '@/components/ui';
 import { useTranslation } from '@/hooks';
-import { truncateText, getPopularityColor, getPopularityLabel } from '@/lib/utils';
+import { truncateText, getPopularityColor, getPopularityLabelKey } from '@/lib/utils';
 import type { SpotifyTrack } from '@/@types/spotify';
 
 interface TopTracksPopularityChartProps {
@@ -60,7 +60,7 @@ export function TopTracksPopularityChart({ tracks }: TopTracksPopularityChartPro
       <div className="mb-6">
         <h2 className="text-2xl font-bold">{t('charts.popularityTitle')}</h2>
         <p className="text-muted-foreground mt-1 text-sm">
-          {t('artist.popularity')} das {tracks.length} músicas mais populares
+          {t('artist.popularity')} {t('charts.topTracksDescription', { count: tracks.length })}
         </p>
       </div>
 
@@ -98,7 +98,7 @@ export function TopTracksPopularityChart({ tracks }: TopTracksPopularityChartPro
               className="h-3 w-3 rounded"
               style={{ backgroundColor: getPopularityColor(threshold) }}
             />
-            <span className="text-muted-foreground">{getPopularityLabel(threshold)}</span>
+            <span className="text-muted-foreground">{t(getPopularityLabelKey(threshold))}</span>
           </div>
         ))}
       </div>

@@ -103,10 +103,10 @@ export function PopularityDurationScatterChart({ tracks }: PopularityDurationSca
             type="number"
             dataKey="duration"
             name={t('tracks.duration')}
-            unit=" min"
+            unit={` ${t('charts.min')}`}
             tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
             label={{
-              value: `${t('tracks.duration')} (minutos)`,
+              value: `${t('tracks.duration')} (${t('charts.minutes')})`,
               position: 'insideBottom',
               offset: -10,
               style: { fill: 'hsl(var(--muted-foreground))' },
@@ -155,7 +155,7 @@ export function PopularityDurationScatterChart({ tracks }: PopularityDurationSca
             {t('charts.avgDuration')}
           </p>
           <p className="text-foreground text-2xl font-bold">
-            {avgDuration.toFixed(1)} <span className="text-lg font-normal">min</span>
+            {avgDuration.toFixed(1)} <span className="text-lg font-normal">{t('charts.min')}</span>
           </p>
         </div>
         <div className="bg-muted/50 rounded-lg p-4">

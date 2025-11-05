@@ -1,6 +1,7 @@
 import { Button } from './button';
 import { cn } from '@/lib/utils';
 import { useTranslation } from '@/hooks/useTranslation';
+import { ArrowLeft, ArrowRight } from './icons';
 
 export interface PaginationProps {
   /**
@@ -146,20 +147,7 @@ export function Pagination({
           disabled={isFirstPage}
           aria-label={t('common.previous')}
         >
-          <svg
-            className="h-4 w-4"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
+          <ArrowLeft className="h-4 w-4" />
           <span className="ml-1">{t('common.previous')}</span>
         </Button>
 
@@ -209,15 +197,7 @@ export function Pagination({
           aria-label={t('common.next')}
         >
           <span className="mr-1">{t('common.next')}</span>
-          <svg
-            className="h-4 w-4"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
+          <ArrowRight className="h-4 w-4" />
         </Button>
       </div>
     </nav>

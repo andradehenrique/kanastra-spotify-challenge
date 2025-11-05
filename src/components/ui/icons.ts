@@ -1,0 +1,23 @@
+// Central lucide-react import for icon migration
+export {
+  ArrowLeft,
+  ArrowRight,
+  Search,
+  Loader2,
+  User,
+  Users,
+  Calendar,
+  Music,
+  AlertCircle,
+  Album,
+  TrendingUp,
+  Trash2,
+  Plus,
+  X,
+  Heart,
+  Clock,
+  CircleCheck,
+  Info,
+  OctagonX,
+  TriangleAlert,
+} from 'lucide-react';

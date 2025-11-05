@@ -1,6 +1,7 @@
 import { useNavigate } from '@tanstack/react-router';
 import { Button } from '@/components/ui';
 import { useTranslation } from '@/hooks';
+import { AlertCircle, ArrowLeft } from '@/components/ui/icons';
 
 interface ErrorStateProps {
   error?: Error | null;
@@ -18,14 +19,7 @@ export function ErrorState({ error }: ErrorStateProps) {
     <div className="flex min-h-[400px] flex-col items-center justify-center gap-6 text-center">
       {/* Ícone de Erro */}
       <div className="bg-destructive/10 text-destructive rounded-full p-6">
-        <svg className="h-12 w-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
+        <AlertCircle className="h-12 w-12" />
       </div>
 
       {/* Mensagem de Erro */}
@@ -40,14 +34,7 @@ export function ErrorState({ error }: ErrorStateProps) {
 
       {/* Botão para voltar */}
       <Button onClick={handleGoBack} variant="outline">
-        <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M10 19l-7-7m0 0l7-7m-7 7h18"
-          />
-        </svg>
+        <ArrowLeft className="mr-2 h-4 w-4" />
         {t('common.back')}
       </Button>
     </div>

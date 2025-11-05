@@ -1,4 +1,4 @@
-import { Trash2, Music } from 'lucide-react';
+import { Trash2, Music } from '@/components/ui/icons';
 import { Card, Button } from '@/components/ui';
 import type { FavoriteSong } from '@/context/FavoritesContext.types';
 import { useTranslation } from '@/hooks';

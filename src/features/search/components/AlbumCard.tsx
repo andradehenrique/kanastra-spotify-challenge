@@ -1,6 +1,7 @@
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { getAlbumTypeLabel } from '@/lib/utils';
+import { Calendar, Music, Album } from '@/components/ui/icons';
 import type { SpotifyAlbumSimplified } from '@/@types/spotify';
 
 interface AlbumCardProps {
@@ -29,19 +30,7 @@ export function AlbumCard({ album, onClick }: AlbumCardProps) {
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center">
-            <svg
-              className="text-muted-foreground h-24 w-24"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
-              />
-            </svg>
+            <Album className="text-muted-foreground h-24 w-24" />
           </div>
         )}
 
@@ -66,26 +55,12 @@ export function AlbumCard({ album, onClick }: AlbumCardProps) {
         {/* Release Year e Total de Tracks */}
         <div className="text-muted-foreground flex items-center justify-between text-xs">
           <div className="flex items-center gap-1.5">
-            <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-              />
-            </svg>
+            <Calendar className="h-3.5 w-3.5" />
             <span>{releaseYear}</span>
           </div>
 
           <div className="flex items-center gap-1.5">
-            <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
-              />
-            </svg>
+            <Music className="h-3.5 w-3.5" />
             <span>
               {album.total_tracks} {album.total_tracks === 1 ? 'track' : 'tracks'}
             </span>

@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Heart } from 'lucide-react';
+import { Heart } from '@/components/ui/icons';
 import { toast } from 'sonner';
 import {
   Table,
@@ -84,7 +84,9 @@ export function TopTracksTable({ tracks, itemsPerPage = 10 }: TopTracksTableProp
               <TableHead>{t('tracks.album')}</TableHead>
               <TableHead className="text-center">{t('tracks.duration')}</TableHead>
               <TableHead className="text-center">{t('tracks.popularity')}</TableHead>
-              <TableHead className="w-12 text-center">❤️</TableHead>
+              <TableHead className="w-12 text-center">
+                <Heart className="inline h-5 w-5 fill-red-500 text-red-500" aria-label="Favorite" />
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

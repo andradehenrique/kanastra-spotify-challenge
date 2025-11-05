@@ -9,7 +9,7 @@ import {
   ZAxis,
   Legend,
 } from 'recharts';
-import { Clock, TrendingUp } from 'lucide-react';
+import { Clock, TrendingUp } from '@/components/ui/icons';
 import { Card } from '@/components/ui';
 import { useTranslation } from '@/hooks';
 import { msToMinutes, formatDuration, getPopularityColor } from '@/lib/utils';

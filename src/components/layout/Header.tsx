@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import { Heart } from 'lucide-react';
+import { Heart } from '@/components/ui/icons';
 import { useTranslation, useFavorites } from '@/hooks';
 import { LanguageToggle } from './LanguageToggle';
 import { Badge } from '@/components/ui';

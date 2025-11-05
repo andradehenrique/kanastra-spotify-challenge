@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
-import { Search, Music, X } from 'lucide-react';
+import { Search, Music, X } from '@/components/ui/icons';
 import { Button, Input, Card, Textarea } from '@/components/ui';
 import { favoriteSongSchema, type FavoriteSongFormData } from '@/schemas';
 import { useFavorites, useTranslation } from '@/hooks';

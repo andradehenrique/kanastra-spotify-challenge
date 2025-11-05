@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { Trash2, Plus, X } from 'lucide-react';
+import { Trash2, Plus, X } from '@/components/ui/icons';
 import { Button, Badge } from '@/components/ui';
 import { useFavorites, useTranslation } from '@/hooks';
 import { FavoriteCard, EmptyFavoritesState, AddManualForm } from './components';
